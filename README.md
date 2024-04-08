@@ -1,24 +1,37 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# 筋トレを通した健康増進SNS（仮）
+​
+## サイト概要
+### サイトテーマ
+筋トレを中心としたフィットネスSNSプラットフォーム。<br>
+日々のトレーニングメニューの記録や共有、トレーニングマシンの設定や使い方のアクセス、その他のフィットネスに関する情報交換などを提供する。<br>
+フォロー機能などのソーシャル機能を備え、トレーニングの記録や目標設定、コミュニティでの情報交換を可能にする。
+​
+### テーマを選んだ理由
+長時間椅子に座っていたことによる腰痛を筋トレを通して改善した自身の経験から、健康的なライフスタイルの重要性を実感し、特に同じような生活を送るエンジニアやオフィスワーカー、学生に向けて健康への意識を高めるための手段として筋トレを提案したいと考えた。体を動かす習慣を身に付けるきっかけを提供し、日本のフィットネス人口を増加させたいと考えたため。
+​
+### ターゲットユーザ
+・長時間椅子に座るエンジニアやオフィスワーカー、学生<br>
+・筋トレやフィットネスに興味があり、これから始めてみたいと思っている人<br>
+・自身のトレーニングを共有してモチベーションを上げたい人
+​
+### 主な利用シーン
+・日々のトレーニングメニューの記録と共有したい時<br>
+・トレーニングマシンの設定や使い方を確認したい時<br>
+・代替種目を探したい時<br>
+・トレーニングの記録から、次回の目標を設定して欲しい時<br>
+・フィットネスコミュニティで情報交換やモチベーション共有をしたい時
+​
+## 設計書
+<!--テーマを設定・提出する時点では不要です-->
+​
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
+​
+## 使用素材
+- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
+- アプリケーションの実装に使用したgem/bootstrapのリファレンスなどの記載は不要です。
+- 使用しない場合は、使用素材の項目をREADMEから削除してください。
