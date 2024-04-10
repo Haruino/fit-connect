@@ -1,15 +1,13 @@
-class Admin::GenresController < ApplicationController
+class Admin::PostThreadsController < ApplicationController
   before_action :authenticate_admin!
+  
   def index
-    
   end
-  
-  def create
-    
+
+  def show
   end
-  
+
   def edit
-    
   end
   
   def update

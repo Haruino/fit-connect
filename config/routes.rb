@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'homes/top'
   # 会員用
   # URL /user/sign_in ...
   devise_for :user,skip: [:passwords], controllers: {
@@ -17,8 +16,6 @@ Rails.application.routes.draw do
   
   # ユーザー用
   scope module: :public do
-    resource  :records,         except: [:new,:index,:edit]
-    resources :past_records,    except: [:new,:create,:edit]
     resources :users,           only:   [:show,:update,:edit] do
       get :favorites,             on: :member
       get :withdraw,              on: :member
@@ -35,11 +32,12 @@ Rails.application.routes.draw do
         delete 'favorites/:id',   to: 'favorites#destroy', as: 'favorite'
       end
     end
+    resource  :records,         except: [:new,:index,:edit]
+    resources :past_records,    except: [:new,:create,:edit]
   end
   
   # 管理者用
   namespace :admin do
-    get 'comments'
     resources :users,           except: [:new,:create,:destroy] 
     resources :genres,          except: [:new,:show]
     resources :groups,          only:   [:index,:show,:destroy] do
@@ -48,6 +46,7 @@ Rails.application.routes.draw do
         delete 'comments/:id',      to: 'comments#destroy', as: 'comment'
       end
     end
+    get 'comments'
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
