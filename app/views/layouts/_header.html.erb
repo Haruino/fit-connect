@@ -1,0 +1,63 @@
+<nav class="container">
+    <%= link_to root_path, class: "header-logo navbar-brand" do %>
+      <%= image_tag "logo" %>
+    <% end %>
+    <div>
+      <ul>
+        <li>
+          <%= link_to groups_path do %>
+            <span>Groups</span>
+          <% end %>
+        </li>
+        <% if admin_signed_in? %>
+          <li>
+            <%= link_to admin_users_path do %>
+              <span>Users</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to admin_genres_path do %>
+              <span>Genres</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to admin_comments_path do %>
+              <span>Comments</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_admin_session_path, method: :delete do %>
+              <span>Log Out</span>
+            <% end %>
+          </li>
+        <% elsif user_signed_in? %>
+          <li>
+            <%= link_to user_path(current_user) do %>
+              <span>Mypage</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to user_records_path(current_user) do %>
+              <span>My Workouts</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <span>Log Out</span>
+            <% end %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to new_user_registration_path do %>
+              <span>Sign Up</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_session_path do %>
+              <span>Log In</span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+</nav>

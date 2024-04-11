@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       resource :relationships,    only: [:create,:destroy] 
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers'  => 'relationships#followers',  as: 'followers'
+      resource  :records,         except: [:new,:index,:edit]
+      resources :past_records,    except: [:new,:create,:edit]
     end
     resources :groups,          except: [:new,:destroy] do
       resources :group_users,   only:   [:create,:destroy], param: :user_id
@@ -32,8 +34,6 @@ Rails.application.routes.draw do
         delete 'favorites/:id',   to: 'favorites#destroy', as: 'favorite'
       end
     end
-    resource  :records,         except: [:new,:index,:edit]
-    resources :past_records,    except: [:new,:create,:edit]
   end
   
   # 管理者用
