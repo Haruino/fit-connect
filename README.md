@@ -30,4 +30,5 @@
 - IDE：Cloud9
 ​
 ## 使用素材
-後ほど選定してから記載
+- Canva：https://www.canva.com/
+- Unsplash：https://unsplash.com/ja
