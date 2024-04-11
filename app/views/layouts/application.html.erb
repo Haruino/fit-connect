@@ -13,14 +13,15 @@
 
   <body>
     <%= render 'layouts/style' %>
-    <header>
+    <header class="mb-4">
       <%= render 'layouts/header' %>
     </header>
-    <main>
+    <main class="my-4">
       <%= yield %>
     </main>
-    <footer>
+    <footer class="bg-light py-4">
       <%= render 'layouts/footer' %>
+      <!-- 一時的に -->
     </footer>
   </body>
 </html>
