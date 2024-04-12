@@ -23,12 +23,17 @@ class Public::UsersController < ApplicationController
   end
   
   def withdraw
+    @user = current_user
+    withdrew_email = "withdrew_" + Time.now.to_i.to_s + @user.email
+    @user.update(email: withdrew_email, active: false)
+    reset_session
+    redirect_to root_path
   end
   
   private
 
   def user_params
-    params.require(:user).permit(:name, :introduction,:image)
+    params.require(:user).permit(:name, :introduction,:profile_image)
   end
   
   def ensure_correct_user

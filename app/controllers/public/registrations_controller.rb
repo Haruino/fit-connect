@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Public::RegistrationsController < Devise::RegistrationsController
+  before_action :prohibit_multiple_login, if: :admin_signed_in?
+  before_action :configure_permitted_parameters, if: :devise_controller?
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -56,11 +58,16 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up for inactive accounts.
   
-  def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :name, :introduction)
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :introduction])
   end
+
   
   def after_sign_up_path_for(resource)
     user_path(current_user)
+  end
+  
+  def prohibit_multiple_login
+    redirect_to admin_root_path
   end
 end

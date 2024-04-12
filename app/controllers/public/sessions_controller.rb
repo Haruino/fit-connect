@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  before_action :prohibit_multiple_login, if: :admin_signed_in?
+  before_action :active?, only: [:create]
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -24,9 +26,18 @@ class Public::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  
-    
+
+  def active?
+    @user = User.find_by(email: params[:user][:email])
+    return unless @user && @user.valid_password?(params[:user][:password]) && !@user.active
+    redirect_to new_user_registration_path
+  end
+
   def after_sign_in_path_for(resource)
     user_path(current_user)
+  end
+
+  def prohibit_multiple_login
+    redirect_to admin_root_path
   end
 end

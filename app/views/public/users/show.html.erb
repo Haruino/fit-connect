@@ -1,13 +1,24 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1>Mypage</h1>
+      <h1 class="text-center">Mypage</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 offset-2">
+      <%= image_tag @user.get_profile_image(180, 180) %>
+    </div>
+    <div class="col-6">
       <p><%= @user.name %></p>
       <p><%= @user.introduction %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
       <% if @user.id == current_user.id %>
         <%= link_to "編集する", edit_user_path(current_user) %>
-        <%= link_to "退会する", withdraw_user_path(current_user) %>
+        <%= link_to "退会する", withdraw_user_path(current_user),data: { confirm: "本当に退会しますか？" } %>
       <% end %>
     </div>
-  </div>  
+  </div>
 </div>
