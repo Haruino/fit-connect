@@ -27,6 +27,12 @@ class Public::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    redirect_to user_path(user)
+  end
+
   def active?
     @user = User.find_by(email: params[:user][:email])
     return unless @user && @user.valid_password?(params[:user][:password]) && !@user.active
