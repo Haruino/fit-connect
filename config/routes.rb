@@ -50,7 +50,7 @@ Rails.application.routes.draw do
         delete 'comments/:id',      to: 'comments#destroy', as: 'comment'
       end
     end
-    get 'comments'
+    get 'comments', to: 'comments#index', as: 'comments'
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

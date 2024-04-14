@@ -44,6 +44,6 @@ class Public::SessionsController < Devise::SessionsController
   end
 
   def prohibit_multiple_login
-    redirect_to admin_root_path
+    redirect_to root_path
   end
 end
