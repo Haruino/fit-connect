@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :groups,           dependent: :destroy
+  has_many :members,      dependent: :destroy
   has_many :post_threads,     dependent: :destroy
   has_many :comments,         dependent: :destroy
   has_many :relationships,    dependent: :destroy
@@ -22,13 +22,25 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed
 
   has_one_attached :profile_image
-
+  
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/user_no_image.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'user-no-image.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
+  end
+  
+  def follow(user)
+    relationships.create(followed_id: user.id)
+  end
+
+  def unfollow(user)
+    relationships.find_by(followed_id: user.id).destroy
+  end
+
+  def following?(user)
+    followings.include?(user)
   end
   
   

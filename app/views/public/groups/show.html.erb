@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 offset-md-2 col-md-4 mb-4">
+      <%= image_tag @group.get_group_image(300,300) %>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-4">
+      <div class="text-right mb-4">
+        <% if @group.is_owned_by?(current_user) %>
+          <%= link_to '編集する', edit_group_path(@group), class: "btn btn-sm btn-success" %>
+        <% elsif @group.includesUser?(current_user) %>
+          <%= link_to '退会する', group_group_user_path(@group, current_user), method: :delete, class: "btn btn-sm btn-danger" %>
+        <% else %>
+          <%= link_to '参加する', group_group_users_path(@group), method: :post, class: "btn btn-sm btn-success" %>
+        <% end %>
+      </div>
+      <h3><%= @group.title %></h3>
+      <p><%= @group.body %></p>
+      <span class="badge badge-warning"><%= @group.genre.name %></span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-2 col-8">
+      <h3 class="mb-4">メンバー一覧</h3>
+      <% @group.members.each do |member| %>
+        <%= image_tag member.user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %>
+      <% end %>
+      <p class="text-right mt-4"><%= link_to "もっと見る", group_group_users_path(group_id: @group.id) %></p>
+    </div>
+  </div>
+</div>

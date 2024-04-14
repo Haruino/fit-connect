@@ -1,0 +1,32 @@
+<div class='container px-5 px-sm-0'>
+  <%= render "public/shared/error_messages", resource: @group %>
+  <div class='row'>
+    <% @groups.each do |group| %>
+      <div class='col-md-4 mb-4'>
+        <div class='card'>
+          <%= image_tag group.get_group_image(500,500), class: "card-img-top" %>
+          <div class='card-body'>
+            <h5 class='card-title'>
+              <% if user_signed_in? %>
+                <%= link_to group.title, group_path(group) %>
+              <% end %>
+            </h5>
+            <p class='card-text'><%= group.body %></p>
+            <p class='card-text'>
+              <span class="badge badge-warning"><%= group.genre.name %></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  
+  <% if user_signed_in? %>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h3>グループ作成</h3>
+      <%= render "form", group: @group %>
+      </div>
+  </div>
+  <% end %>
+</div>
