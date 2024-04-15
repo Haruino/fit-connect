@@ -4,31 +4,35 @@
       <%= image_tag @group.get_group_image(300,300) %>
     </div>
     <div class="col-sm-12 col-md-4 mb-4">
-      <div class="text-right mb-4">
-        <% if @group.is_owned_by?(current_user) %>
-          <%= link_to '編集する', edit_group_path(@group), class: "btn btn-sm btn-success" %>
-        <% elsif @group.includesUser?(current_user) %>
-          <%= link_to '退会する', group_group_user_path(@group, current_user), method: :delete, class: "btn btn-sm btn-danger" %>
-        <% else %>
-          <%= link_to '参加する', group_group_users_path(@group), method: :post, class: "btn btn-sm btn-success" %>
-        <% end %>
-      </div>
+      <% unless current_user.guest_user? %>
+        <div class="text-right mb-4">
+          <% if @group.is_owned_by?(current_user) %>
+            <%= link_to '編集する', edit_group_path(@group), class: "btn btn-sm btn-success" %>
+          <% elsif @group.includesUser?(current_user) %>
+            <%= link_to '退会する', group_group_user_path(@group, current_user), method: :delete, class: "btn btn-sm btn-danger" %>
+          <% else %>
+            <%= link_to '参加する', group_group_users_path(@group), method: :post, class: "btn btn-sm btn-success" %>
+          <% end %>
+        </div>
+      <% end %>
       <h3><%= @group.title %></h3>
       <p><%= @group.body %></p>
       <span class="badge badge-warning"><%= @group.genre.name %></span>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="offset-2 col-8">
       <h3 class="mb-4">メンバー一覧</h3>
       <% @group.members.each do |member| %>
-        <%= image_tag member.user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %>
+        <%= link_to user_path(member.user) do %>
+          <%= image_tag member.user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %>
+        <% end %>
       <% end %>
       <p class="text-right"><%= link_to "もっと見る", group_group_users_path(@group) %></p>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="offset-2 col-8">
       <h3 class="mb-4">新規スレッド作成</h3>
@@ -37,35 +41,35 @@
           <%= f.label :スレッド名 %>
           <%= f.text_field :title, class: 'form-control' %>
         </div>
-  
+
         <div class="form-group">
           <%= f.label :スレッド詳細 %>
           <%= f.text_area :body, class: 'form-control' %>
         </div>
-        
+
         <div class="form-group">
           <%= f.submit class: 'btn btn-info' %>
         </div>
       <% end %>
     </div>
   </div>
-  
-  <div class="row">
-    <div class="offset-2 col-8">
+
       <div class="row">
-        <div class="col"></div>
-        <div class="col">スレッド一覧</div>
-        <div class="col">作成日時</div>
-      </div>
-      <% @post_threads.each.with_index(1) do |post_thread, index| %>
-        <div class="row">
-          <div class="col"><%= index %></div>
-          <div class="col"><%= post_thread.title %></div>
-          <div class="col"><%= post_thread.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+        <div class="offset-2 col-8">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col">スレッド一覧</div>
+            <div class="col">作成日時</div>
+          </div>
+          <% @post_threads.each.with_index(1) do |post_thread, index| %>
+            <div class="row">
+              <div class="col"><%= index %></div>
+              <div class="col"><%= post_thread.title %></div>
+              <div class="col"><%= post_thread.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-    </div>
-  </div>
+      </div>
     </div>
   </div>
 </div>

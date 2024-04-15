@@ -2,8 +2,10 @@
   <div class="row">
     <% @group.members.each do |member| %>
       <div class="col">
-        <p><%= image_tag member.user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %></p>
-        <p><%= member.user.name %></p>
+        <%= link_to user_path(member.user) do %>
+          <p><%= image_tag member.user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %></p>
+          <p><%= member.user.name %></p>
+        <% end %>
       </div>
     <% end %>
   </div>

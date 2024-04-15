@@ -17,18 +17,16 @@
   <div class="row">
     <% @user.groups.each do |group| %>
       <div class="col-md-3 mb-4">
-        <div class="card h-100">
+        <div class='card h-100 d-flex flex-column'>
           <%= image_tag group.get_group_image(500,500), class: "card-img-top" %>
-          <div class="card-body">
-            <h5 class="card-title">
-              <% if user_signed_in? %>
-                <%= link_to group.title, group_path(group) %>
-              <% end %>
+          <div class='card-body'>
+            <h5 class='card-title'>
+              <%= link_to_group(group) %>
             </h5>
-            <p class="card-text"><%= group.body %></p>
-            <p class="card-text">
-              <span class="badge badge-warning"><%= group.genre.name %></span>
-            </p>
+            <p class='card-text'><%= group.body %></p>
+          </div>
+          <div class="mt-auto p-3">
+            <span class="badge badge-warning"><%= group.genre.name %></span>
           </div>
         </div>
       </div>
