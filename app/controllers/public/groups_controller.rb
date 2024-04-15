@@ -20,6 +20,8 @@ class Public::GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @post_threads = @group.post_threads
+    @post_thread = PostThread.new
   end
 
   def edit

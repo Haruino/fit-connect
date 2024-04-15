@@ -1,8 +1,9 @@
 class Group < ApplicationRecord
   belongs_to :genre
-  has_many :members,      dependent: :destroy
+  has_many :members,          dependent: :destroy
+  has_many :post_threads,     dependent: :destroy
   belongs_to :owner,          class_name: 'User'
-  has_many :users,            through: :group_users
+  has_many :users,            through: :members
 
   has_one_attached :group_image
 

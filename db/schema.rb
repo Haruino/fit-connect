@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(version: 2024_04_14_063030) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "owner_id", null: false
-    t.string "image_id"
   end
 
   create_table "members", force: :cascade do |t|
