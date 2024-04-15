@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render "public/shared/error_messages", resource: @post_thread %>
   <div class="row">
     <div class="col-sm-12 offset-md-2 col-md-4 mb-4">
       <%= image_tag @group.get_group_image(300,300) %>
@@ -33,43 +34,49 @@
     </div>
   </div>
 
+  <% unless current_user.guest_user? || !@group.includesUser?(current_user) %>
+    <div class="row">
+      <div class="offset-2 col-8">
+        <h3 class="mb-4">新規スレッド作成</h3>
+          <%= form_with model: @post_thread, url: group_post_threads_path(group_id: @group.id), local: true do |f| %>
+          <div class="form-group">
+            <%= f.label :スレッド名 %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+  
+          <div class="form-group">
+            <%= f.label :スレッド詳細 %>
+            <%= f.text_area :body, class: 'form-control' %>
+          </div>
+  
+          <div class="form-group">
+            <%= f.submit "スレッドを投稿", class: 'btn btn-info' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="row">
     <div class="offset-2 col-8">
-      <h3 class="mb-4">新規スレッド作成</h3>
-        <%= form_with model: @post_thread, url: group_post_threads_path(group_id: @group.id), local: true do |f| %>
-        <div class="form-group">
-          <%= f.label :スレッド名 %>
-          <%= f.text_field :title, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :スレッド詳細 %>
-          <%= f.text_area :body, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.submit class: 'btn btn-info' %>
+      <div class="row">
+        <div class="col-1 border"></div>
+        <div class="col-5 border">スレッド一覧</div>
+        <div class="col-2 border">作成者</div>
+        <div class="col-3 border">作成日時</div>
+      </div>
+      <% @post_threads.each.with_index(1) do |post_thread, index| %>
+        <div class="row">
+          <div class="col-1 border"><%= index %></div>
+          <div class="col-5 border">
+            <%= link_to post_thread_path(post_thread) do %>
+              <%= post_thread.title %>
+            <% end %>
+          </div>
+          <div class="col-2 border"><%= post_thread.user.name %></div>
+          <div class="col-3 border"><%= post_thread.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
         </div>
       <% end %>
-    </div>
-  </div>
-
-      <div class="row">
-        <div class="offset-2 col-8">
-          <div class="row">
-            <div class="col"></div>
-            <div class="col">スレッド一覧</div>
-            <div class="col">作成日時</div>
-          </div>
-          <% @post_threads.each.with_index(1) do |post_thread, index| %>
-            <div class="row">
-              <div class="col"><%= index %></div>
-              <div class="col"><%= post_thread.title %></div>
-              <div class="col"><%= post_thread.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
-            </div>
-          <% end %>
-        </div>
-      </div>
     </div>
   </div>
 </div>

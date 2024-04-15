@@ -13,7 +13,9 @@
       <p><%= @user.introduction %></p>
     </div>
   </div>
-  <h3 class="text-center mb-4"><%= @user.name %>さんが参加しているグループ</h3>
+  <% unless current_user.guest_user? %>
+    <h3 class="text-center mb-4"><%= @user.name %>さんが参加しているグループ</h3>
+  <% end %>
   <div class="row">
     <% @user.groups.each do |group| %>
       <div class="col-md-3 mb-4">
@@ -34,7 +36,7 @@
   </div>
   <div class="row mt-4">
     <div class="col text-center">
-      <% if @user == current_user && !current_user.guest_user? %>
+      <% unless current_user.guest_user? %>
         <%= link_to "編集する", edit_user_path(current_user), class: "btn btn-primary mr-2" %>
         <%= link_to "退会する", withdraw_user_path(current_user), data: { confirm: "本当に退会しますか？" }, method: :delete, class: "btn btn-danger" %>
       <% end %>

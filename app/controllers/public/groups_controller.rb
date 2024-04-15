@@ -11,6 +11,7 @@ class Public::GroupsController < ApplicationController
     @group.owner_id = current_user.id
     @group.genre_id = params[:group][:genre_id]
     if @group.save
+      @group.members.create(user_id: current_user.id)
       redirect_to groups_path
     else
       @groups = Group.all
