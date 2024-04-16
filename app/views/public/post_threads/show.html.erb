@@ -1,17 +1,43 @@
 <div class="container">
+  <%= render "public/shared/error_messages", resource: @comment %>
   <div class="row">
     <div class="offset-2 col-8">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="text-center"><%= @post_thread.title %></h2>
         <%= link_to "削除する", post_thread_path(@post_thread), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger mr-3 align-self-start" %>
       </div>
-      <div class="text-right">
-        <span>
-          <%= @post_thread.user.name %>
-          <%= image_tag @post_thread.user.get_profile_image(100, 100), class: "rounded-circle ml-4" %>
-        </span>
+      <div class="row">
+        <div class="col-8">
+          <p><%= @post_thread.body %></p>
+        </div>
+        <div class="col-4">
+          <div class="text-right">
+            <span>
+              <%= @post_thread.user.name %>
+              <%= image_tag @post_thread.user.get_profile_image(100, 100), class: "rounded-circle ml-4" %>
+            </span>
+          </div>
+        </div>
       </div>
-      <p><%= @post_thread.body %></p>
+      <h3>コメント</h3>
+      <% @post_thread.comments.each do |comment| %>
+      <div class="row">
+        <div class="col-11 my-2">
+          <p class="text-break"><%= comment.comment %></p>
+        </div>
+        <div class="col-1">
+          <%= image_tag comment.user.get_profile_image(50, 50) %>
+        </div>
+      </div>
+      <% end %>
+      <%= form_with model: [@post_thread, @comment], url: post_thread_comments_path(@post_thread) do |f| %>
+      <div class="form-group"> 
+        <%= f.text_area :comment, rows: '4', class: 'form-control' %>
+      </div>
+      <div class="form-group text-right">
+        <%= f.submit "送信する", class: 'btn btn-info' %>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

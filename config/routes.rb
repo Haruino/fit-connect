@@ -30,8 +30,8 @@ Rails.application.routes.draw do
       resources :past_records,    except: [:new,:create,:edit]
     end
     resources :groups,          except: [:new,:destroy] do
-      resources :group_users,   only:   [:index, :create,:destroy]
-      resources :post_threads,  only: [:create, :show, :destroy], as: 'post_threads', shallow: true do
+      resources :members,       only:   [:index, :create,:destroy]
+      resources :post_threads,  only:   [:create, :show, :destroy], as: 'post_threads', shallow: true do
         resources :comments,      only: [:create]
         delete 'comments/:id',    to: 'comments#destroy', as: 'comment'
         resources :favorites,     only:   [:create]

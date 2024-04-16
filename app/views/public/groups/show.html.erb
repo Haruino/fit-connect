@@ -10,9 +10,9 @@
           <% if @group.is_owned_by?(current_user) %>
             <%= link_to '編集する', edit_group_path(@group), class: "btn btn-sm btn-success" %>
           <% elsif @group.includesUser?(current_user) %>
-            <%= link_to '退会する', group_group_user_path(@group, current_user), method: :delete, class: "btn btn-sm btn-danger" %>
+            <%= link_to '退会する', group_member_path(@group, current_user), method: :delete, class: "btn btn-sm btn-danger" %>
           <% else %>
-            <%= link_to '参加する', group_group_users_path(@group), method: :post, class: "btn btn-sm btn-success" %>
+            <%= link_to '参加する', group_members_path(@group), method: :post, class: "btn btn-sm btn-success" %>
           <% end %>
         </div>
       <% end %>
@@ -30,7 +30,7 @@
           <%= image_tag member.user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %>
         <% end %>
       <% end %>
-      <p class="text-right"><%= link_to "もっと見る", group_group_users_path(@group) %></p>
+      <p class="text-right"><%= link_to "もっと見る", group_members_path(@group) %></p>
     </div>
   </div>
 
@@ -65,7 +65,7 @@
         <div class="col-2 border">作成者</div>
         <div class="col-3 border">作成日時</div>
       </div>
-      <% @post_threads.each.with_index(1) do |post_thread, index| %>
+      <% @post_threads.reverse_each.with_index(1) do |post_thread, index| %>
         <div class="row">
           <div class="col-1 border"><%= index %></div>
           <div class="col-5 border">

@@ -1,8 +1,12 @@
 <div class="container my-4">
   <div class="row">
     <div class="col text-center">
-      <h1>Mypage</h1>
-    </div>
+      <% if @user == current_user %>
+        <h1>Mypage</h1>
+      <% else %>
+        <h1><%= @user.name %>さんのページ</h1>
+      <% end %>
+      </div>
   </div>
   <div class="row my-4">
     <div class="col-md-3 offset-md-3">
@@ -36,7 +40,7 @@
   </div>
   <div class="row mt-4">
     <div class="col text-center">
-      <% unless current_user.guest_user? %>
+      <% unless current_user.guest_user? || !(@user == current_user) %>
         <%= link_to "編集する", edit_user_path(current_user), class: "btn btn-primary mr-2" %>
         <%= link_to "退会する", withdraw_user_path(current_user), data: { confirm: "本当に退会しますか？" }, method: :delete, class: "btn btn-danger" %>
       <% end %>

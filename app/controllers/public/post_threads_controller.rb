@@ -15,6 +15,7 @@ class Public::PostThreadsController < ApplicationController
 
   def show
     @post_thread = PostThread.find(params[:id])
+    @comment = Comment.new
   end
 
   def destroy

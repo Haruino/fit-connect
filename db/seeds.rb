@@ -51,7 +51,7 @@ initial_users = [
   }
 ]
 initial_users.each.with_index(1) do |user, i|
-  user["email"] = "#{TEST_GMAIL_ACCOUNT_NAME}+#{i}@gmail"
+  user["email"] = "#{TEST_GMAIL_ACCOUNT_NAME}#{i}@gmail"
   user["password"] = TEST_PASSWORD
   user["password_confirmation"] = TEST_PASSWORD
   new_user = User.create!(user)
@@ -86,8 +86,8 @@ initial_groups = [
   },
   {
     "genre_id": 5,
-    "title": "ウェイトトレーニング交流会",
-    "body": "ウェイトトレーニングに興味がある人や、助言や情報を求めている人が集まるグループです。一緒に筋力を鍛えましょう！",
+    "title": "ダイエット研究会",
+    "body": "ダイエットをしたい人や、助言や情報を求めている人が集まるグループです。一緒にダイエット頑張りましょう！",
     "owner_id": 4
   },
   {
