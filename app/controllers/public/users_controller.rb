@@ -1,14 +1,14 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_correct_user, only: [:edit, :update]
-  before_action :ensure_guest_user, only: [:edit]
+  before_action :set_user, only: [:edit, :update]
+  before_action :ensure_correct_user, only: [:edit, :update, :withdraw]
+  before_action :ensure_not_guest_user, only: [:edit, :update]
 
   def show
     @user = User.find(params[:id])
   end
   
   def edit
-    @user = current_user
   end
   
   def update
@@ -24,7 +24,6 @@ class Public::UsersController < ApplicationController
   end
   
   def withdraw
-    @user = current_user
     withdrew_email = "withdrew_" + Time.now.to_i.to_s + @user.email
     @user.update(email: withdrew_email, active: false)
     reset_session
@@ -37,17 +36,15 @@ class Public::UsersController < ApplicationController
     params.require(:user).permit(:name, :introduction,:profile_image)
   end
   
-  def ensure_correct_user
-    @user = User.find(params[:id])
-    unless @user == current_user
-      redirect_to user_path(current_user)
-    end
+  def set_user
+    @user = current_user
   end
   
-  def ensure_guest_user
-    @user = User.find(params[:id])
-    if @user.guest_user?
-      redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
-    end
+  def ensure_correct_user
+    redirect_to user_path(current_user) unless @user == current_user
+  end
+  
+  def ensure_not_guest_user
+    redirect_to new_user_session_path if @user.guest_user?
   end  
 end

@@ -1,19 +1,24 @@
 class Public::MembersController < ApplicationController
   before_action :authenticate_user!
-  
+  before_action :set_group, only: [:index, :create, :destroy]
+
   def index
-     @group = Group.find(params[:group_id])
   end
   
   def create
-    member = current_user.members.new(group_id: params[:group_id])
-    member.save
+    current_user.members.create(group: @group)
     redirect_to request.referer
   end
   
   def destroy
-    member = current_user.members.find_by(group_id: params[:group_id])
+    member = current_user.members.find_by(group: @group)
     member.destroy
     redirect_to request.referer
+  end
+  
+  private
+  
+  def set_group
+    @group = Group.find(params[:group_id])
   end
 end

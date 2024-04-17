@@ -1,4 +1,6 @@
 class Public::GroupsController < ApplicationController
+  before_action :ensure_logged_in, only: [:show]
+  before_action :set_group, only: [:show, :edit, :update]
   before_action :ensure_correct_user, only: [:edit, :update]
 
   def index
@@ -7,9 +9,7 @@ class Public::GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
-    @group.owner_id = current_user.id
-    @group.genre_id = params[:group][:genre_id]
+    @group = current_user.groups.build(group_params.merge(owner_id: current_user.id, genre_id:[:group][:genre_id]))
     if @group.save
       @group.members.create(user_id: current_user.id)
       redirect_to groups_path
@@ -20,7 +20,6 @@ class Public::GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:id])
     @post_threads = @group.post_threads
     @post_thread = PostThread.new
   end
@@ -42,10 +41,15 @@ class Public::GroupsController < ApplicationController
     params.require(:group).permit(:title, :body, :group_image, :genre_id)
   end
 
-  def ensure_correct_user
+  def ensure_logged_in
+    redirect_to new_user_session_path unless user_signed_in?
+  end
+  
+  def set_group
     @group = Group.find(params[:id])
-    unless @group.owner_id == current_user.id
-      redirect_to groups_path
-    end
+  end
+  
+  def ensure_correct_user
+    redirect_to groups_path unless @group.owner_id == current_user.id
   end
 end

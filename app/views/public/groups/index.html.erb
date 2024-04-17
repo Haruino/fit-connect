@@ -19,7 +19,7 @@
     <% end %>
   </div>
   
-  <% if user_signed_in? %>
+  <% if user_signed_in? && !current_user.guest_user? %>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
       <h3>グループ作成</h3>

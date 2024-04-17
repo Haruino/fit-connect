@@ -1,10 +1,11 @@
 class Public::PostThreadsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_post_thread, only: [:show, :destroy]
+  
   def create
-    @post_thread = PostThread.new(post_thread_params)
     @group = Group.find(params[:group_id])
+    @post_thread = @group.post_threads.build(post_thread_params)
     @post_thread.user_id = current_user.id
-    @post_thread.group_id = @group.id
     if @post_thread.save
       redirect_to post_thread_path(@post_thread)
     else
@@ -14,18 +15,21 @@ class Public::PostThreadsController < ApplicationController
   end
 
   def show
-    @post_thread = PostThread.find(params[:id])
     @comment = Comment.new
   end
 
   def destroy
-    @post_thread = PostThread.find(params[:id])
     @post_thread.destroy
     redirect_to group_path(@post_thread.group)
   end
 
   private
+  
   def post_thread_params
     params.require(:post_thread).permit(:title, :body)
+  end
+  
+  def set_post_thread
+    @post_thread = PostThread.find(params[:id])
   end
 end

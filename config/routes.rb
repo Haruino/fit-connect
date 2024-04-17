@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # 会員用
-  # URL /user/sign_in ...
+  # ユーザー用
   devise_for :user,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: "public/sessions"
@@ -10,15 +9,6 @@ Rails.application.routes.draw do
     post "user/guest_sign_in", to: "public/sessions#guest_sign_in"
   end
 
-  # 管理者用
-  # URL /admin/sign_in ...
-  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
-    sessions: "admin/sessions"
-  }
-  
-  root to: "homes#top"
-  
-  # ユーザー用
   scope module: :public do
     resources :users,           only:   [:show,:update,:edit] do
       get :favorites,             on: :member
@@ -41,6 +31,10 @@ Rails.application.routes.draw do
   end
   
   # 管理者用
+  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
+    sessions: "admin/sessions"
+  }
+  
   namespace :admin do
     resources :users,           except: [:new,:create,:destroy] 
     resources :genres,          except: [:new,:show]
@@ -53,5 +47,5 @@ Rails.application.routes.draw do
     get 'comments', to: 'comments#index', as: 'comments'
   end
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: "homes#top"
 end
