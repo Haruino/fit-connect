@@ -9,7 +9,7 @@ class Public::GroupsController < ApplicationController
   end
 
   def create
-    @group = current_user.groups.build(group_params.merge(owner_id: current_user.id, genre_id:[:group][:genre_id]))
+    @group = current_user.groups.build(group_params.merge(owner_id: current_user.id, genre_id: params[:group][:genre_id]))
     if @group.save
       @group.members.create(user_id: current_user.id)
       redirect_to groups_path

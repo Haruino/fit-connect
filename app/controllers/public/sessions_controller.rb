@@ -20,7 +20,6 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  protected
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
@@ -38,7 +37,9 @@ class Public::SessionsController < Devise::SessionsController
     return unless @user && @user.valid_password?(params[:user][:password]) && !@user.active
     redirect_to new_user_registration_path
   end
-
+  
+  protected
+  
   def after_sign_in_path_for(resource)
     user_path(current_user)
   end

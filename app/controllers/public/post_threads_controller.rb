@@ -15,6 +15,7 @@ class Public::PostThreadsController < ApplicationController
   end
 
   def show
+    @group = @post_thread.group
     @comment = Comment.new
   end
 
