@@ -19,9 +19,12 @@ class Public::PostThreadsController < ApplicationController
     @comment = Comment.new
   end
 
-  def destroy
-    @post_thread.destroy
-    redirect_to group_path(@post_thread.group)
+  def destroy    
+    if @post_thread.destroy
+      redirect_to admin_group_path(@post_thread.group)
+    else
+      render :show
+    end
   end
 
   private

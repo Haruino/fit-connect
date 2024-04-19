@@ -12,6 +12,16 @@ class Public::CommentsController < ApplicationController
     end
   end
   
+  def destroy
+    @comment = Comment.find(params[:id])
+    @post_thread = @comment.post_thread
+    if @comment.destroy
+      redirect_to post_thread_path(@post_thread)
+    else
+      render "public/post_threads/show"
+    end
+  end
+  
   private
   
   def comment_params

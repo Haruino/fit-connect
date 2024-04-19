@@ -25,19 +25,17 @@
       </div>
     </div>
     <div class="col-3">
-        <div class="card">
-            <div class="card-header bg-dark text-white">
-                ジャンル一覧
-            </div>
-            <div class="card-body p-0">
-                <div class="list-group list-group-flush">
-                    <%= link_to "全て", groups_path, class: "list-group-item list-group-item-action" %>
-                    <% @genres.each do |genre| %>
-                        <%= link_to genre.name, groups_path(genre_search: genre.id), class: "list-group-item list-group-item-action" %>
-                    <% end %>
-                </div>
-            </div>
-        </div>
+      <div class="card">
+          <div class="card-header bg-dark text-white">ジャンル一覧</div>
+          <div class="card-body p-0">
+              <div class="list-group list-group-flush">
+                <%= link_to "全て", groups_path, class: "list-group-item list-group-item-action" %>
+                <% @genres.each do |genre| %>
+                    <%= link_to genre.name, groups_path(genre_search: genre.id), class: "list-group-item list-group-item-action" %>
+                <% end %>
+              </div>
+          </div>
+      </div>
     </div>
   </div>
 

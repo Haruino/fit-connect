@@ -24,11 +24,11 @@
       <h3>コメント</h3>
       <% @post_thread.comments.each do |comment| %>
       <div class="row">
-        <div class="col-11 my-2">
-          <p class="text-break"><%= comment.comment %></p>
-        </div>
         <div class="col-1">
           <%= image_tag comment.user.get_profile_image(50, 50) %>
+        </div>
+        <div class="col-11 my-2">
+          <p class="text-break"><%= comment.comment %></p>
         </div>
       </div>
       <% end %>
