@@ -2,6 +2,9 @@
   <%= render "public/shared/error_messages", resource: @group %>
   <div class='row'>
     <div class="col-9">
+      <% if params[:group_search] || params[:genre_search] %>
+        <h2 class="text-center mt-3 mb-5"><%= @group_title %></h2>
+      <% end %>
       <div class="row">
         <% @groups.each do |group| %>
         <div class='col-md-4 mb-4'>

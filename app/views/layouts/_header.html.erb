@@ -3,8 +3,8 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag asset_path("logo.png"), class: "header-logo", alt: "Logo" %>
     <% end %>
-    
-    <% if admin_signed_in? || user_signed_in? %>
+
+    <% if user_signed_in? %>
       <%= form_with url: groups_path, method: :get, class: "form-inline" do |form| %>
         <%= form.text_field :group_search, placeholder: "グループを検索", class: "form-control mr-2" %> <!-- mr-2 は右側の余白を追加 -->
         <%= form.button type: "submit", class: "btn btn-secondary" do %>
@@ -12,7 +12,15 @@
         <% end %>
       <% end %>
     <% end %>
-    
+    <% if admin_signed_in? %>
+      <%= form_with url: groups_path, method: :get, class: "form-inline" do |form| %>
+        <%= form.text_field :group_search, placeholder: "検索", class: "form-control mr-2" %> <!-- mr-2 は右側の余白を追加 -->
+        <%= form.button type: "submit", class: "btn btn-secondary" do %>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        <% end %>
+      <% end %>
+    <% end %>
+
     <div>
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
