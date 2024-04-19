@@ -6,7 +6,7 @@
     
     <% if admin_signed_in? || user_signed_in? %>
       <%= form_with url: groups_path, method: :get, class: "form-inline" do |form| %>
-        <%= form.text_field :search, placeholder: "グループを検索", class: "form-control mr-2" %> <!-- mr-2 は右側の余白を追加 -->
+        <%= form.text_field :group_search, placeholder: "グループを検索", class: "form-control mr-2" %> <!-- mr-2 は右側の余白を追加 -->
         <%= form.button type: "submit", class: "btn btn-secondary" do %>
           <i class="fa-solid fa-magnifying-glass"></i>
         <% end %>

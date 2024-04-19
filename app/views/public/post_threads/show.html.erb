@@ -32,7 +32,7 @@
         </div>
       </div>
       <% end %>
-      <% if current_user == @group.members.exists?(user_id: current_user.id) %>
+      <% if @group.members.exists?(user_id: current_user.id) %>
         <%= form_with model: [@post_thread, @comment], url: post_thread_comments_path(@post_thread) do |f| %>
         <div class="form-group"> 
           <%= f.text_area :comment, rows: '4', class: 'form-control' %>

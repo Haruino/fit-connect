@@ -43,12 +43,10 @@
             <%= f.label :スレッド名 %>
             <%= f.text_field :title, class: 'form-control' %>
           </div>
-  
           <div class="form-group">
             <%= f.label :スレッド詳細 %>
             <%= f.text_area :body, class: 'form-control' %>
           </div>
-  
           <div class="form-group">
             <%= f.submit "スレッドを投稿", class: 'btn btn-info' %>
           </div>
@@ -57,26 +55,37 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="offset-2 col-8">
-      <div class="row">
-        <div class="col-1 border"></div>
-        <div class="col-5 border">スレッド一覧</div>
-        <div class="col-2 border">作成者</div>
-        <div class="col-3 border">作成日時</div>
-      </div>
-      <% @post_threads.reverse_each.with_index(1) do |post_thread, index| %>
-        <div class="row">
-          <div class="col-1 border"><%= index %></div>
-          <div class="col-5 border">
-            <%= link_to post_thread_path(post_thread) do %>
-              <%= post_thread.title %>
-            <% end %>
-          </div>
-          <div class="col-2 border"><%= post_thread.user.name %></div>
-          <div class="col-3 border"><%= post_thread.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+<div class="row">
+  <div class="offset-2 col-9">
+    <div class="form-group">
+      <%= form_with url: group_path(@group), method: :get do |form| %>
+        <div class="d-flex">
+          <%= form.text_field :thread_search, placeholder: "スレッドを検索", class: "form-control mr-2" %>
+          <%= form.button type: "submit", class: "btn btn-secondary" do %>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          <% end %>
         </div>
       <% end %>
     </div>
+    <div class="d-flex text-white">
+      <div class="col-1 border bg-secondary ">No.</div>
+      <div class="col-5 border bg-secondary ">スレッド一覧</div>
+      <div class="col-3 border bg-secondary ">作成者</div>
+      <div class="col-3 border bg-secondary ">作成日時</div>
+    </div>
+    <% @post_threads.reverse_each.with_index(1) do |post_thread, index| %>
+      <div class="d-flex">
+        <div class="col-1 border"><%= index %></div>
+        <div class="col-5 border">
+          <%= link_to post_thread_path(post_thread) do %>
+            <%= post_thread.title %>
+          <% end %>
+        </div>
+        <div class="col-3 border"><%= post_thread.user.name %></div>
+        <div class="col-3 border"><%= post_thread.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+      </div>
+    <% end %>
   </div>
+</div>
+
 </div>

@@ -4,9 +4,9 @@ class Public::GroupsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
 
   def index
-    if params[:search]
-      @groups = Group.where("title LIKE ?", "%#{params[:search]}%")
-      @group_title = "「#{params[:search]}」の検索一覧"
+    if params[:group_search]
+      @groups = Group.where("title LIKE ?", "%#{params[:group_search]}%")
+      @group_title = "「#{params[:group_search]}」の検索一覧"
     elsif params[:genre_search]
       @groups = Group.where(genre_id: params[:genre_search])
       @group_title = "#{Genre.find(params[:genre_search]).name}一覧"
@@ -30,7 +30,11 @@ class Public::GroupsController < ApplicationController
   end
 
   def show
-    @post_threads = @group.post_threads
+    if params[:thread_search].present?
+      @post_threads = PostThread.where("title LIKE ?", "%#{params[:thread_search]}%")
+    else
+      @post_threads = @group.post_threads
+    end
     @post_thread = PostThread.new
   end
 
