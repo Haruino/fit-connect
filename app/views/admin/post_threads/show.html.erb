@@ -24,11 +24,11 @@
         <div class="col-1">
           <%= image_tag comment.user.get_profile_image(50, 50) %>
         </div>
-        <div class="col-10 my-2">
+        <div class="col-9 my-2">
           <p class="text-break"><%= comment.comment %></p>
         </div>
-        <div class="col-1">
-          <%= image_tag comment.user.get_profile_image(50, 50) %>
+        <div class="col-2">
+          <%= link_to "削除", admin_post_thread_comment_path(post_thread_id: @post_thread.id, id: comment.id, from_page: "post_thread_show"), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-warning" %>
         </div>
       </div>
       <% end %>
