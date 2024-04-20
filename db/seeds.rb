@@ -9,9 +9,9 @@
 TEST_GMAIL_ACCOUNT_NAME = ENV["TEST_GMAIL_ACCOUNT_NAME"]
 TEST_PASSWORD = ENV["TEST_PASSWORD"]
 
-Admin.find_or_create_by!(
+Admin.create!(
    email: 'admin@gmail',
-   password: '123456',
+   password: '123456'
 )
 
 initial_genres = [
