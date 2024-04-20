@@ -21,7 +21,7 @@ class Public::PostThreadsController < ApplicationController
 
   def destroy    
     if @post_thread.destroy
-      redirect_to admin_group_path(@post_thread.group)
+      redirect_to group_path(@post_thread.group)
     else
       render :show
     end
