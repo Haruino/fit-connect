@@ -24,6 +24,7 @@ class Public::GroupsController < ApplicationController
       redirect_to group_path(@group)
     else
       @groups = Group.all
+      @genres = Genre.all
       render :index
     end
   end
