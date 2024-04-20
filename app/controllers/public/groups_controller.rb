@@ -5,10 +5,10 @@ class Public::GroupsController < ApplicationController
 
   def index
     if params[:group_search].present?
-      @groups = Group.where("title LIKE ?", "%#{params[:group_search]}%").select(:title)
+      @groups = Group.where("title LIKE ?", "%#{params[:group_search]}%")
       @group_title = "「#{params[:group_search]}」の検索結果"
     elsif params[:genre_search]
-      @groups = Group.where(genre_id: params[:genre_search]).includes(:genre)
+      @groups = Group.where(genre_id: params[:genre_search])
       @group_title = "ジャンル：#{Genre.find(params[:genre_search]).name}"
     else
       @groups = Group.all
