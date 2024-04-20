@@ -21,7 +21,7 @@ class Public::GroupsController < ApplicationController
     @group = current_user.groups.build(group_params.merge(owner_id: current_user.id, genre_id: params[:group][:genre_id]))
     if @group.save
       @group.members.create(user_id: current_user.id)
-      redirect_to groups_path
+      redirect_to group_path(@group)
     else
       @groups = Group.all
       render :index
