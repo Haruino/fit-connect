@@ -31,7 +31,7 @@
           <p class="text-break"><%= comment.comment %></p>
         </div>
         <div class="col-2">
-          <% if @post_thread.user_id == @group.owner_id %>
+          <% if current_user.id == @group.owner_id %>
             <%= link_to "削除", post_thread_comment_path(post_thread_id: @post_thread.id, id: comment.id), method: :delete, class:"btn btn-warning" %>
           <% end %>
         </div>
