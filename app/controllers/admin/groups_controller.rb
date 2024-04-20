@@ -3,9 +3,9 @@ class Admin::GroupsController < ApplicationController
   before_action :set_group, only: [:show, :destroy]
   
   def index
-    if params[:group_search]
-      @groups = Group.where("title LIKE ?", "%#{params[:group_search]}%")
-      @group_title = "「#{params[:group_search]}」の検索結果"
+    if params[:search]
+      @groups = Group.where("title LIKE ?", "%#{params[:search]}%")
+      @group_title = "「#{params[:search]}」の検索結果"
     elsif params[:genre_search]
       @groups = Group.where(genre_id: params[:genre_search])
       @group_title = "ジャンル：#{Genre.find(params[:genre_search]).name}"

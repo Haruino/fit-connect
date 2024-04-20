@@ -1,7 +1,12 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
   def index
-    @users = User.all
+    if params[:search].present?
+      @users = User.where("name LIKE ?", "%#{params[:search]}%")
+      @user_title = "「#{params[:search]}」の検索結果"
+    else
+      @users = User.all
+    end
   end
 
   def show

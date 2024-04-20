@@ -50,4 +50,5 @@ Rails.application.routes.draw do
   end
 
   root to: "homes#top"
+  get "/search" => "homes#search"
 end

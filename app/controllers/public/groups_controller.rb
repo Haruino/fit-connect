@@ -4,11 +4,11 @@ class Public::GroupsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
 
   def index
-    if params[:group_search]
-      @groups = Group.where("title LIKE ?", "%#{params[:group_search]}%")
+    if params[:group_search].present?
+      @groups = Group.where("title LIKE ?", "%#{params[:group_search]}%").select(:title)
       @group_title = "「#{params[:group_search]}」の検索結果"
     elsif params[:genre_search]
-      @groups = Group.where(genre_id: params[:genre_search])
+      @groups = Group.where(genre_id: params[:genre_search]).includes(:genre)
       @group_title = "ジャンル：#{Genre.find(params[:genre_search]).name}"
     else
       @groups = Group.all
@@ -57,11 +57,11 @@ class Public::GroupsController < ApplicationController
   def ensure_logged_in
     redirect_to new_user_session_path unless user_signed_in?
   end
-  
+
   def set_group
     @group = Group.find(params[:id])
   end
-  
+
   def ensure_correct_user
     redirect_to groups_path unless @group.owner_id == current_user.id
   end
