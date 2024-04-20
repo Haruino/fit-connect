@@ -21,7 +21,7 @@ initial_genres = [
   {name: "40代トレーニー"},
   {name: "女性トレーニー"}
 ]
-Genre.find_or_create_by!(initial_genres)
+Genre.create!(initial_genres)
 
 initial_users = [
   {
@@ -54,7 +54,7 @@ initial_users.each.with_index(1) do |user, i|
   user["email"] = "#{TEST_GMAIL_ACCOUNT_NAME}+#{i}@gmail"
   user["password"] = TEST_PASSWORD
   user["password_confirmation"] = TEST_PASSWORD
-  new_user = User.find_or_create_by!(user)
+  new_user = User.create!(user)
   profile_image_path = Rails.root.join("app/assets/images/seeds/user_#{sprintf("%02d",i)}.jpg")
   new_user.profile_image.attach(io: File.open(profile_image_path), filename: "user_#{sprintf("%02d",i)}.jpg")
 end
@@ -98,7 +98,7 @@ initial_groups = [
   }
 ]
 initial_groups.each.with_index(1) do |group, i|
-  new_group = Group.find_or_create_by!(group)
+  new_group = Group.create!(group)
   image_path = Rails.root.join("app/assets/images/seeds/group_#{sprintf("%02d",i)}.jpg")
   new_group.group_image.attach(io: File.open(image_path), filename: "group_#{sprintf("%02d",i)}.jpg")
 end
@@ -120,5 +120,5 @@ initial_members = [
   { user_id: 4, group_id: 6 },
 ]
 initial_members.each do |member|
-  Member.find_or_create_by!(member)
+  Member.create!(member)
 end
