@@ -51,7 +51,7 @@ initial_users = [
   }
 ]
 initial_users.each.with_index(1) do |user, i|
-  user["email"] = "#{TEST_GMAIL_ACCOUNT_NAME}#{i}@gmail"
+  user["email"] = "#{TEST_GMAIL_ACCOUNT_NAME}+#{i}@gmail"
   user["password"] = TEST_PASSWORD
   user["password_confirmation"] = TEST_PASSWORD
   new_user = User.create!(user)
