@@ -1,0 +1,5 @@
+  <%= link_to post_thread_favorites_path(post_thread), method: :delete, remote: true, data: {"turbolinks" => false}, class: "favorite-btn text-light" do %>
+    <p class="mr-4 btn btn-secondary">
+      ブックマークを解除
+    </p>
+  <% end %>

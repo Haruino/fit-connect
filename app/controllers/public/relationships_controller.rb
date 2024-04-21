@@ -9,7 +9,7 @@ class Public::RelationshipsController < ApplicationController
     redirect_to request.referer
   end
 
-  def destroy
+  def destroy  
     if @user != current_user
       current_user.unfollow(@user)
     end
