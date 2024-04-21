@@ -13,9 +13,28 @@
       <%= image_tag @user.get_profile_image(180, 180), class: "img-fluid" %>
     </div>
     <div class="col-md-6">
-      <p><%= @user.name %></p>
+        <div class="row">
+          <div class="col-md-6 mb-3 d-flex justify-content-around align-items-end">
+            <%= link_to "#{@user.followings.count} フォロー中", user_followings_path(@user), class: "mr-2" %>
+            <%= link_to "#{@user.followers.count} フォロワー", user_followers_path(@user) %>
+          </div>
+          <div class="col-md-6 mb-2">
+            <% unless current_user == @user %>
+              <% if current_user.following?(@user) %>
+                <%= link_to user_relationships_path(@user.id), method: :delete, class: "btn btn-danger mr-2" do %>
+                  フォロー解除
+                <% end %>
+              <% else %>
+                <%= link_to user_relationships_path(@user.id), method: :post, class: "btn btn-success" do %>
+                  フォロー
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <h3><%= @user.name %></h3>
       <p><%= @user.introduction %></p>
-      <%= link_to "ブックマークしたスレッド", favorites_user_path(@user), class: "btn btn-secondary" %>
+      <%= link_to "ブックマーク", favorites_user_path(@user), class: "btn btn-secondary mr-2" %>
       <%= link_to "トレーニング記録", favorites_user_path(@user), class: "btn btn-secondary" %>
     </div>
   </div>
