@@ -7,20 +7,20 @@
       <% end %>
       <div class="row">
         <% @groups.each do |group| %>
-        <div class='col-md-4 mb-4'>
-          <div class='card h-100 d-flex flex-column'>
-            <%= image_tag group.get_group_image(500,500), class: "card-img-top" %>
-            <div class='card-body'>
-              <h5 class='card-title'>
-                <%= link_to_group(group) %>
-              </h5>
-              <p class='card-text'><%= group.body %></p>
-            </div>
-            <div class="mt-auto p-3">
-              <span class="badge badge-warning"><%= group.genre.name %></span>
+          <div class='col-md-4 mb-4'>
+            <div class='card h-100 d-flex flex-column'>
+              <%= image_tag group.get_group_image(500,500), class: "card-img-top" %>
+              <div class='card-body'>
+                <h5 class='card-title'>
+                  <%= link_to_group(group) %>
+                </h5>
+                <p class='card-text'><%= group.body %></p>
+              </div>
+              <div class="mt-auto p-3">
+                <span class="badge badge-warning"><%= group.genre.name %></span>
+              </div>
             </div>
           </div>
-        </div>
         <% end %>
       </div>
     </div>
@@ -31,7 +31,7 @@
             <div class="list-group list-group-flush">
               <%= link_to "全て", groups_path, class: "list-group-item list-group-item-action" %>
               <% @genres.each do |genre| %>
-                  <%= link_to genre.name, groups_path(genre_search: genre.id), class: "list-group-item list-group-item-action" %>
+                <%= link_to genre.name, groups_path(genre_search: genre.id), class: "list-group-item list-group-item-action" %>
               <% end %>
             </div>
           </div>

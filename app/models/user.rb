@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :groups,           through: :members
   has_many :post_threads,     dependent: :destroy
   has_many :comments,         dependent: :destroy
+  has_many :favorites,        dependent: :destroy
   has_many :relationships,    dependent: :destroy
   has_many :records,          dependent: :destroy
   has_many :favorites,        dependent: :destroy
@@ -23,7 +24,7 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed
 
   has_one_attached :profile_image
-  
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/user_no_image.jpg')
@@ -31,7 +32,7 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
-  
+
   def follow(user)
     relationships.create(followed_id: user.id)
   end
@@ -43,8 +44,8 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
-  
-  
+
+
   # ゲストユーザー機能の実装
   GUEST_USER_EMAIL = "guest@example.com"
 
@@ -55,10 +56,10 @@ class User < ApplicationRecord
       user.introduction = "guestuser"
     end
   end
-  
+
   def guest_user?
     email == GUEST_USER_EMAIL
   end
-  
+
   validates :name, presence: true
 end

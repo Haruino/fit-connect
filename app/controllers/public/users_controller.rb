@@ -20,7 +20,7 @@ class Public::UsersController < ApplicationController
   end
   
   def favorites
-    
+    @favorites = current_user.favorites
   end
   
   def withdraw
