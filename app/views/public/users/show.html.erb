@@ -15,6 +15,8 @@
     <div class="col-md-6">
       <p><%= @user.name %></p>
       <p><%= @user.introduction %></p>
+      <%= link_to "ブックマークしたスレッド", favorites_user_path(@user), class: "btn btn-secondary" %>
+      <%= link_to "トレーニング記録", favorites_user_path(@user), class: "btn btn-secondary" %>
     </div>
   </div>
   <% unless current_user.guest_user? %>
