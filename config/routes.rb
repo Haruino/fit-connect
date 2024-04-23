@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
-    resources :users,           only:   [:show,:update,:edit] do
+    resources :users,         except:   [:new,:create,:destroy] do
       get :favorites,             on: :member
       get :withdraw,              on: :member
       resource :relationships,    only: [:create,:destroy]

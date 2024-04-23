@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">トレーニング記録ページ</h2>
+    <div class="row">
+      <% @records.each do |record| %>
+        <div class="col-md-6">
+          <table class="table">
+            <thead>
+              <tr>
+                <th colspan="3" class="text-center"><%= record.part %> - <%= record.exercise %></th>
+              </tr>
+              <tr>
+                <th>セット</th>
+                <th>重量</th>
+                <th>回数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= record.rep %></td>
+                <td><%= record.set %></td>
+                <td><%= record.weight %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    </div>
+
+
+  <%= form_with(model: @record, url: user_records_path, method: :post, class: "mb-4") do |f| %>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <%= f.label :part, class: "form-label" %>
+          <%= f.select :part, options_for_select(["Option 1", "Option 2", "Option 3"]), { prompt: "Select Part" }, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :exercise, class: "form-label" %>
+          <%= f.select :exercise, options_for_select(["Option A", "Option B", "Option C"]), { prompt: "Select Exercise" }, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :rep, class: "form-label" %>
+          <%= f.text_field :rep, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :set, class: "form-label" %>
+          <%= f.text_field :set, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :weight, class: "form-label" %>
+          <%= f.text_field :weight, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "Add Record", class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+

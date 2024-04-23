@@ -5,6 +5,15 @@ class Public::UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :withdraw]
   before_action :ensure_not_guest_user, only: [:edit, :update]
 
+  def index
+    if params[:search].present?
+      @users = User.where("name LIKE ?", "%#{params[:search]}%")
+      @user_title = "「#{params[:search]}」の検索結果"
+    else
+      @users = User.all
+    end
+  end
+
   def show
   end
 
