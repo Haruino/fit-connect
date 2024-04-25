@@ -1,2 +1,10 @@
-<h1>Public::PastRecords#index</h1>
-<p>Find me in app/views/public/past_records/index.html.erb</p>
+<div class="container">
+  <h2>過去の記録一覧</h2>
+  <ul class="list-group">
+    <% @past_records_by_date.each do |date, records| %>
+      <li class="list-group-item">
+        <%= link_to date.strftime("%Y-%m-%d"), user_past_record_path(@user, date: date.strftime("%Y-%m-%d")), class: "text-decoration-none text-dark" %>
+      </li>
+    <% end %>
+  </ul>
+</div>

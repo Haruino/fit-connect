@@ -16,14 +16,12 @@ Rails.application.routes.draw do
       resource :relationships,    only: [:create,:destroy]
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers'  => 'relationships#followers',  as: 'followers'
-      resources :records, only: [] do
-      delete '/', to: 'records#destroy', on: :member
-    end
-      resource  :records,         except: [:new,:index,:edit]do
+      resource  :records,         only: [:create,:show] do
         resource :parts, only: [:create]
         resource :exercises, only: [:create]
       end
-      resources :past_records,    except: [:new,:create,:edit]
+      resources :records,         only: [:update, :destroy]
+      resources :past_records,    except: [:new,:create,:edit], param: :date
     end
     resources :groups,          except: [:new,:destroy] do
       resources :members,       only:   [:index, :create,:destroy]

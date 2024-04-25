@@ -11,10 +11,10 @@ class Public::RecordsController < ApplicationController
       render :show
     end
   end
-
+  
   def show
     @user = User.find(params[:user_id])
-    records = @user.records.select(:name, :rep, :set, :weight, :created_at).group_by(&:name)
+    records = @user.records.select(:id, :name, :rep, :set, :weight, :memo, :created_at).group_by(&:name)
     @todays_records = records.select { |name, records| records.any? { |record| record.created_at.to_date == Date.today } }
     @record = Record.new
     @part = Part.new
@@ -22,23 +22,32 @@ class Public::RecordsController < ApplicationController
   end
 
   def update
-  
+    @user = User.find(params[:user_id])
+    @record = @user.records.find(params[:id])
+    if @record.update(record_params)
+      redirect_to user_records_path(@user)
+    else
+      render :show
+    end
   end
-  
+
   def destroy
     @user = User.find(params[:user_id])
-    @record = @user.records.find_by(id: params[:id])
-    @record.destroy
-    redirect_to user_records_path(@user), notice: "Record deleted successfully."
+    @record = @user.records.find(params[:id])
+    if @record.destroy
+      redirect_to user_records_path(@user)
+    else
+      render :show
+    end
   end
 
   private
   def latest_set_number
-    latest_record = Record.last
+    latest_record = Record.where(exercise_id: record_params[:exercise_id]).last
     latest_record ? latest_record.set : 0
   end
 
   def record_params
-    params.require(:record).permit(:part_id, :exercise_id, :weight, :rep)
+    params.require(:record).permit(:part_id, :exercise_id, :weight, :rep, :memo)
   end
 end
