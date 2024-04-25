@@ -21,10 +21,12 @@ class Public::GroupsController < ApplicationController
     @group = current_user.groups.build(group_params.merge(owner_id: current_user.id, genre_id: params[:group][:genre_id]))
     if @group.save
       @group.members.create(user_id: current_user.id)
+      flash[:success] = "グループを作成しました。"
       redirect_to group_path(@group)
     else
       @groups = Group.all
       @genres = Genre.all
+      flash.now[:danger] = "グループの作成に失敗しました。"
       render :index
     end
   end
@@ -43,8 +45,10 @@ class Public::GroupsController < ApplicationController
 
   def update
     if @group.update(group_params)
+      flash[:success] = "グループを編集しました。"
       redirect_to groups_path
     else
+      flash.now[:danger] = "グループの編集に失敗しました。"
       render :edit
     end
   end

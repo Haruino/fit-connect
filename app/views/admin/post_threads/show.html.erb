@@ -1,37 +1,35 @@
-<div class="container">
-  <div class="row">
-    <div class="offset-2 col-8">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="text-center"><%= @post_thread.title %></h2>
-          <%= link_to "削除する", admin_post_thread_path(@post_thread), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger mr-3 align-self-start" %>
-        </div>
-      <div class="row">
-        <div class="col-8">
-          <p><%= @post_thread.body %></p>
-        </div>
-        <div class="col-4">
-          <div class="text-right">
-            <span>
-              <%= @post_thread.user.name %>
-              <%= image_tag @post_thread.user.get_profile_image(100, 100), class: "rounded-circle ml-4" %>
-            </span>
-          </div>
+<div class="row">
+  <div class="offset-2 col-8">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="text-center"><%= @post_thread.title %></h2>
+        <%= link_to "削除する", admin_post_thread_path(@post_thread), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger mr-3 align-self-start" %>
+      </div>
+    <div class="row">
+      <div class="col-8">
+        <p><%= @post_thread.body %></p>
+      </div>
+      <div class="col-4">
+        <div class="text-right">
+          <span>
+            <%= @post_thread.user.name %>
+            <%= image_tag @post_thread.user.get_profile_image(100, 100), class: "rounded-circle ml-4" %>
+          </span>
         </div>
       </div>
-      <h3>コメント</h3>
-      <% @post_thread.comments.each do |comment| %>
-      <div class="row">
-        <div class="col-1">
-          <%= image_tag comment.user.get_profile_image(50, 50) %>
-        </div>
-        <div class="col-9 my-2">
-          <p class="text-break"><%= comment.comment %></p>
-        </div>
-        <div class="col-2">
-          <%= link_to "削除", admin_post_thread_comment_path(post_thread_id: @post_thread.id, id: comment.id, from_page: "post_thread_show"), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-warning" %>
-        </div>
-      </div>
-      <% end %>
     </div>
+    <h3>コメント</h3>
+    <% @post_thread.comments.each do |comment| %>
+    <div class="row">
+      <div class="col-1">
+        <%= image_tag comment.user.get_profile_image(50, 50) %>
+      </div>
+      <div class="col-9 my-2">
+        <p class="text-break"><%= comment.comment %></p>
+      </div>
+      <div class="col-2">
+        <%= link_to "削除", admin_post_thread_comment_path(post_thread_id: @post_thread.id, id: comment.id, from_page: "post_thread_show"), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-warning" %>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>

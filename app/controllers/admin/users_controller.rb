@@ -17,6 +17,7 @@ class Admin::UsersController < ApplicationController
     withdrew_email = "withdrew_" + Time.now.to_i.to_s + @user.email
     @user.update(email: withdrew_email, active: false)
     reset_session
+    flash[:info] = "ユーザーを退会させした。"
     redirect_to root_path
   end
 end

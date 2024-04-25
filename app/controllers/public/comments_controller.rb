@@ -6,8 +6,10 @@ class Public::CommentsController < ApplicationController
     @comment = current_user.comments.build(comment_params)
     @comment.post_thread = @post_thread
     if @comment.save
+      flash[:success] = "コメントを投稿しました。"
       redirect_to post_thread_path(@post_thread)
     else
+      flash.now[:danger] = "コメントの投稿に失敗しました。"
       render "public/post_threads/show"
     end
   end
@@ -16,8 +18,10 @@ class Public::CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @post_thread = @comment.post_thread
     if @comment.destroy
+      flash[:success] = "コメントを削除しました。"
       redirect_to post_thread_path(@post_thread)
     else
+      flash.now[:danger] = "コメントの削除に失敗しました。"
       render "public/post_threads/show"
     end
   end

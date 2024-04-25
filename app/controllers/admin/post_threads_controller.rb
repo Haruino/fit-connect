@@ -8,8 +8,10 @@ class Admin::PostThreadsController < ApplicationController
 
   def destroy
     if @post_thread.destroy
+      flash[:success] = "スレッドを削除しました。"
       redirect_to admin_group_path(@post_thread.group)
     else
+      flash.now[:danger] = "スレッドの削除に失敗しました。"
       render :show
     end
   end

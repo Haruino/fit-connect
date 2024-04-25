@@ -25,8 +25,10 @@ class Admin::GroupsController < ApplicationController
   
   def destroy
     if @group.destroy
+      flash[:success] = "グループを削除しました。"
       redirect_to admin_groups_path
     else
+      flash.now[:danger] = "グループの削除に失敗しました。"
       render :index
     end
   end

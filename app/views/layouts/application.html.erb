@@ -17,7 +17,14 @@
       <%= render 'layouts/header' %>
     </header>
     <main class="my-4">
-      <%= yield %>
+      <div class="container my-4">
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>">
+            <%= message %>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
     </main>
     <footer class="bg-light py-4">
       <%= render 'layouts/footer' %>
