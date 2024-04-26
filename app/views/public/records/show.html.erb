@@ -110,17 +110,3 @@
 <% end %>
 <h2 class="text-center"><%= link_to "過去の記録一覧", user_past_records_path %></h2>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var editButtons = document.querySelectorAll('.edit-btn');
-  editButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      var row = this.closest('.record-row');
-      var formRow = row.nextElementSibling;
-
-      row.style.display = 'none';
-      formRow.style.display = 'table-row';
-    });
-  });
-});
-</script>

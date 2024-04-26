@@ -21,12 +21,12 @@ class Public::PastRecordsController < ApplicationController
       render :show
     end
   end
-  
+
   def destroy
-    @user = User.find(params[:user_id])  
+    @user = User.find(params[:user_id])
     date = Date.parse(params[:date])
     @record = @user.records.where("DATE(created_at) = ?", date).first
-    if @record.destroy 
+    if @record.destroy
       redirect_to user_past_record_path(@user)
     else
       render :show
