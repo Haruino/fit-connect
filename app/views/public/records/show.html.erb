@@ -12,8 +12,10 @@
           <th class="col-2 text-center">重量</th>
           <th class="col-2 text-center">回数</th>
           <th class="text-center">メモ</th>
-          <th class="col-2 text-center"></th>
-          <th class="col-2 text-center"></th>
+          <% if @user == current_user %>
+            <th class="col-2 text-center"></th>
+            <th class="col-2 text-center"></th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -23,8 +25,10 @@
             <td class="text-center"><%= record[:weight] %></td>
             <td class="text-center"><%= record[:rep] %></td>
             <td><%= record[:memo] %></td>
-            <td class="text-center"><button class="edit-btn btn btn-x btn-info">編集</button></td>
-            <td class="text-center"><%= link_to "削除", user_record_path(@user, record), method: :delete, class: "btn btn-danger" %></td>
+            <% if @user == current_user %>
+              <td class="text-center"><button class="edit-btn btn btn-x btn-info">編集</button></td>
+              <td class="text-center"><%= link_to "削除", user_record_path(@user, record), method: :delete, class: "btn btn-danger" %></td>
+            <% end %>
           </tr>
           <tr class="form-row" style="display:none;">
             <td></td>
@@ -92,7 +96,7 @@
         <%= form.text_field :name, class: "form-control" %>
       </div>
       <div class="form-group">
-        <%= form.submit "種目追加", class: "btn btn-primary" %>
+        <%= form.submit "部位追加", class: "btn btn-primary" %>
       </div>
     <% end %>
 

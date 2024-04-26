@@ -1,9 +1,18 @@
 <div class="container">
-  <h2>過去の記録一覧</h2>
+  <h2>過去のトレーニング記録一覧</h2>
   <ul class="list-group">
     <% @past_records_by_date.each do |date, records| %>
       <li class="list-group-item">
-        <%= link_to date.strftime("%Y-%m-%d"), user_past_record_path(@user, date: date.strftime("%Y-%m-%d")), class: "text-decoration-none text-dark" %>
+        <%= link_to user_past_record_path(@user, date: date.strftime("%Y-%m-%d")), class: "text-decoration-none text-dark" do %>
+        <span class="mr-2"><%= date.strftime("%Y-%m-%d") %></span>
+        <span class="mr-2">|</span>
+        <% records.each_with_index do |record, index| %>
+          <%= record.name %>
+          <% unless index == records.size - 1 %>
+            、
+          <% end %>
+        <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>

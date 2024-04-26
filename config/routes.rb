@@ -21,7 +21,7 @@ Rails.application.routes.draw do
         resource :exercises, only: [:create]
       end
       resources :records,         only: [:update, :destroy]
-      resources :past_records,    except: [:new,:create,:edit], param: :date
+      resources :past_records,    only: [:index,:show,:destroy], param: :date
     end
     resources :groups,          except: [:new,:destroy] do
       resources :members,       only:   [:index, :create,:destroy]
@@ -51,7 +51,8 @@ Rails.application.routes.draw do
     end
     get 'comments', to: 'comments#index', as: 'comments'
   end
-
+  
+  # 共通
   root to: "homes#top"
   get "/search" => "homes#search"
 end
