@@ -8,14 +8,14 @@
   </div>
 </div>
 <div class="row my-4">
-  <div class="col-md-3 offset-md-2">
-    <%= image_tag @user.get_profile_image(180, 180), class: "img-fluid" %>
+  <div class="col-md-3 offset-md-2 bg-light py-5 pl-5 user-page-container">
+    <%= image_tag @user.get_profile_image(180), class: "rounded-circle img-fluid" %>
   </div>
-  <div class="col-md-6">
-    <h3 class="ml-3"><%= @user.name %></h3>
+  <div class="col-md-5 bg-light py-5 pr-3 user-page-container">
+    <h3 class=""><%= @user.name %></h3>
     <div class="row">
-      <div class="col-md-6 mb-3 d-flex justify-content-around align-items-end">
-        <%= link_to "#{@user.followings.count} フォロー中", user_followings_path(@user), class: "mr-2" %>
+      <div class="col-md-8 mb-3 d-flex justify-content-start align-items-end">
+        <%= link_to "#{@user.followings.count} フォロー中", user_followings_path(@user), class: "mr-4" %>
         <%= link_to "#{@user.followers.count} フォロワー", user_followers_path(@user) %>
       </div>
       <% unless current_user == @user %>
@@ -39,14 +39,22 @@
     <% end %>
   </div>
 </div>
+<div class="row mt-4">
+  <div class="col text-center">
+    <% unless current_user.guest_user? || !(@user == current_user) %>
+      <%= link_to "編集する", edit_user_path(current_user), class: "btn btn-primary mr-2" %>
+      <%= link_to "退会する", withdraw_user_path(current_user), data: { confirm: "本当に退会しますか？" }, method: :patch, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>
 <% unless current_user.guest_user? %>
-  <h3 class="text-center my-4"><%= @user.name %>さんが参加しているグループ</h3>
+  <h3 class="text-center mt-5 mb-3"><%= @user.name %>さんが参加しているグループ</h3>
 <% end %>
 <div class="row my-4">
   <% @user.groups.each do |group| %>
     <div class="col-md-3 mb-4">
       <div class='card h-100 d-flex flex-column'>
-        <%= image_tag group.get_group_image(500,500), class: "card-img-top" %>
+        <%= image_tag group.get_group_image(500), class: "card-img-top" %>
         <div class='card-body'>
           <h5 class='card-title'>
             <%= link_to_group(group) %>
@@ -58,12 +66,4 @@
       </div>
     </div>
   <% end %>
-</div>
-<div class="row mt-4">
-  <div class="col text-center">
-    <% unless current_user.guest_user? || !(@user == current_user) %>
-      <%= link_to "編集する", edit_user_path(current_user), class: "btn btn-primary mr-2" %>
-      <%= link_to "退会する", withdraw_user_path(current_user), data: { confirm: "本当に退会しますか？" }, method: :patch, class: "btn btn-danger" %>
-    <% end %>
-  </div>
 </div>

@@ -20,12 +20,12 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 255 }
   
-  def get_profile_image(width, height)
+  def get_profile_image(size)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/user_no_image.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'user-no-image.jpg', content_type: 'image/jpeg')
     end
-    profile_image.variant(resize_to_limit: [width, height]).processed
+    profile_image.variant(resize: "#{size}x#{size}^", gravity: "center", extent: "#{size}x#{size}").processed
   end
 
   def follow(user)

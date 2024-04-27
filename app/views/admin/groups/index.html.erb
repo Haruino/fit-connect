@@ -7,7 +7,7 @@
       <% @groups.each do |group| %>
       <div class='col-md-4 mb-4'>
         <div class='card h-100 d-flex flex-column'>
-          <%= image_tag group.get_group_image(500,500), class: "card-img-top" %>
+          <%= image_tag group.get_group_image(500), class: "card-img-top" %>
           <div class='card-body'>
             <h5 class='card-title'>
               <%= link_to admin_group_path(group) do %>

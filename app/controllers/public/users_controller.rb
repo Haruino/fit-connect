@@ -23,10 +23,10 @@ class Public::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = "ユーザー情報を編集しました。"
+      flash[:notice] = "ユーザー情報を編集しました。"
       redirect_to user_path(@user)
     else
-      flash.now[:danger] = "ユーザー情報の編集に失敗しました。"
+      flash.now[:error] = "ユーザー情報の編集に失敗しました。"
       render "edit"
     end
   end
@@ -39,7 +39,7 @@ class Public::UsersController < ApplicationController
     withdrew_email = "withdrew_" + Time.now.to_i.to_s + @user.email
     @user.update(email: withdrew_email, active: false)
     reset_session
-    flash[:info] = "退会しました。"
+    flash[:notice] = "退会しました。"
     redirect_to root_path
   end
 

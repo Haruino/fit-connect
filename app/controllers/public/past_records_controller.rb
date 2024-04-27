@@ -8,9 +8,7 @@ class Public::PastRecordsController < ApplicationController
   end
 
   def show
-    @date = params[:date].to_date
-    all_records = @user.records.where("DATE(created_at) = ?", @date).select(:id, :name, :rep, :set, :weight, :memo, :created_at)
-    @grouped_records_for_date = all_records.group_by(&:name).select { |_, records| records.any? { |record| record.created_at.to_date == @date } }
+    all_records_for_date
   end
 
   def destroy
@@ -19,6 +17,7 @@ class Public::PastRecordsController < ApplicationController
     if @record.destroy
       redirect_to user_past_record_path(@user)
     else
+      all_records_for_date
       render :show
     end
   end
@@ -27,6 +26,12 @@ class Public::PastRecordsController < ApplicationController
   
   def set_user
     @user = User.find(params[:user_id])
+  end
+  
+  def all_records_for_date
+    @date = params[:date].to_date
+    all_records = @user.records.where("DATE(created_at) = ?", @date).select(:id, :name, :rep, :set, :weight, :memo, :created_at)
+    @grouped_records_for_date = all_records.group_by(&:name).select { |_, records| records.any? { |record| record.created_at.to_date == @date } }
   end
 
   def record_params

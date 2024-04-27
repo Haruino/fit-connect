@@ -3,7 +3,7 @@
   <% @group.members.each do |member| %>
     <div class="col text-center">
       <%= link_to admin_user_path(member.user) do %>
-        <p><%= image_tag member.user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %></p>
+        <p><%= image_tag member.user.get_profile_image(180), class: "rounded-circle mx-1 my-4" %></p>
         <p><%= member.user.name %></p>
       <% end %>
       <%= link_to "グループから削除", admin_group_member_path(@group, member), method: :delete, data: { confirm: "本当にこのメンバーを削除しますか？" }, class: "btn btn-danger btn-sm" %>

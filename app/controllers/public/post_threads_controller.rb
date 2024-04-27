@@ -7,11 +7,11 @@ class Public::PostThreadsController < ApplicationController
     @post_thread = @group.post_threads.build(post_thread_params)
     @post_thread.user_id = current_user.id
     if @post_thread.save
-      flash[:success] = "スレッドを投稿しました。"
+      flash[:notice] = "スレッドを投稿しました。"
       redirect_to post_thread_path(@post_thread)
     else
-      @post_threads = PostThread.all
-      flash.now[:danger] = "スレッドの投稿に失敗しました。"
+      @post_threads = PostThread.page(params[:page])
+      flash.now[:error] = "スレッドの投稿に失敗しました。"
       render "public/groups/show"
     end
   end
@@ -23,10 +23,10 @@ class Public::PostThreadsController < ApplicationController
 
   def destroy    
     if @post_thread.destroy
-      flash[:success] = "スレッドを削除しました。"
+      flash[:notice] = "スレッドを削除しました。"
       redirect_to group_path(@post_thread.group)
     else
-      flash.now[:danger] = "スレッドの削除に失敗しました。"
+      flash.now[:error] = "スレッドの削除に失敗しました。"
       render :show
     end
   end

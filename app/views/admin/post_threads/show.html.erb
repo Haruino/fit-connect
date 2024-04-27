@@ -12,7 +12,7 @@
         <div class="text-right">
           <span>
             <%= @post_thread.user.name %>
-            <%= image_tag @post_thread.user.get_profile_image(100, 100), class: "rounded-circle ml-4" %>
+            <%= image_tag @post_thread.user.get_profile_image(100), class: "rounded-circle ml-4" %>
           </span>
         </div>
       </div>
@@ -21,7 +21,7 @@
     <% @post_thread.comments.each do |comment| %>
     <div class="row">
       <div class="col-1">
-        <%= image_tag comment.user.get_profile_image(50, 50) %>
+        <%= image_tag comment.user.get_profile_image(50) %>
       </div>
       <div class="col-9 my-2">
         <p class="text-break"><%= comment.comment %></p>

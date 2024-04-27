@@ -4,7 +4,8 @@ class Public::PartsController < ApplicationController
     if @part.save
       redirect_to user_records_path(current_user)
     else
-      render 'records/show'
+      flash[:error] = "部位の追加に失敗しました。"
+      redirect_to user_records_path(current_user)
     end
   end
   

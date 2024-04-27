@@ -1,3 +1,4 @@
+<%= render "public/shared/error_messages", resource: @record %>
 <h2 class="mb-4 text-center">本日のトレーニング</h2>
 <div class="row">
   <% @todays_records.each do |name, records| %>
@@ -26,7 +27,7 @@
             <td class="text-center"><%= record[:rep] %>rep</td>
             <td><%= record[:memo] %></td>
             <% if @user == current_user %>
-              <td class="text-center"><button class="edit-btn btn btn-x btn-info">編集</button></td>
+              <td class="text-center"><button class="edit-btn btn btn-primary">編集</button></td>
               <td class="text-center"><%= link_to "削除", user_record_path(@user, record), method: :delete, class: "btn btn-danger" %></td>
             <% end %>
           </tr>
@@ -90,7 +91,7 @@
     <% end %>
   </div>
   <div class="col-6">
-    <%= form_with model: @part, url: user_records_parts_path, method: :post do |form| %>
+    <%= form_with model: Part.new, url: user_records_parts_path, method: :post do |form| %>
       <div class="form-group">
         <%= form.label :name, "部位", class: "form-label" %>
         <%= form.text_field :name, class: "form-control" %>
@@ -100,7 +101,7 @@
       </div>
     <% end %>
 
-    <%= form_with model: @exercise, url: user_records_exercises_path, method: :post do |form| %>
+    <%= form_with model: Exercise.new, url: user_records_exercises_path, method: :post do |form| %>
       <div class="form-group">
         <%= form.label :name, "種目", class: "form-label" %>
         <%= form.text_field :name, class: "form-control" %>

@@ -2,19 +2,18 @@
   <div class="row">
     <div class="col text-center">
       <h2 class="mb-4">運動習慣を日常に</h2>
-      <%= image_tag asset_path("MV.jpg"), size: "960x512" %> 
-      <!-- とりあえず -->
-      
+      <%= image_tag asset_path("MV.jpg"), class: "mv-img" %>
+
       <div class="row top_groups justify-content-center align-items-center">
         <% @groups.each do |group| %>
           <div class='col-md-3'>
             <div class='card h-100'>
               <% if user_signed_in? %>
                 <%= link_to group_path(group) do %>
-                  <%= image_tag group.get_group_image(500,500), class: "card-img-top" %>
+                  <%= image_tag group.get_group_image(500), class: "card-img-top" %>
                 <% end %>
               <% else %>
-                <%= image_tag group.get_group_image(500,500), class: "card-img-top" %>
+                <%= image_tag group.get_group_image(500), class: "card-img-top" %>
               <% end %>
             </div>
           </div>

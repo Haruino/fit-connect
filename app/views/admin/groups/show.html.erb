@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12 offset-md-2 col-md-4 mb-4">
-    <%= image_tag @group.get_group_image(300,300) %>
+    <%= image_tag @group.get_group_image(300) %>
   </div>
   <div class="col-sm-12 col-md-4 mb-4">
     <div class="text-right mb-4">
@@ -17,7 +17,7 @@
     <h3 class="mb-4">メンバー一覧</h3>
     <% @group.members.each do |member| %>
       <%= link_to admin_user_path(member.user) do %>
-        <%= image_tag member.user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %>
+        <%= image_tag member.user.get_profile_image(180), class: "rounded-circle mx-1 my-4" %>
       <% end %>
     <% end %>
     <p class="text-right"><%= link_to "もっと見る", admin_group_members_path(@group) %></p>

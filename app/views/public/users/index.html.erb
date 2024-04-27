@@ -3,7 +3,7 @@
     <% @users.reject { |user| user.guest_user? }.each do |user| %>
       <div class="col text-center">
         <%= link_to user_path(user) do %>
-          <p><%= image_tag user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %></p>
+          <p><%= image_tag user.get_profile_image(180), class: "rounded-circle mx-1 my-4" %></p>
           <p><%= user.name %></p>
         <% end %>
       </div>

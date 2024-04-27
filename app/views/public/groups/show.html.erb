@@ -1,7 +1,7 @@
 <%= render "public/shared/error_messages", resource: @post_thread %>
 <div class="row">
   <div class="col-sm-12 offset-md-2 col-md-4 mb-4">
-    <%= image_tag @group.get_group_image(300,300) %>
+    <%= image_tag @group.get_group_image(300) %>
   </div>
   <div class="col-sm-12 col-md-4 mb-4">
     <% unless current_user.guest_user? %>
@@ -26,7 +26,7 @@
     <h3 class="mb-4">メンバー一覧</h3>
     <% @group.members.each do |member| %>
       <%= link_to user_path(member.user) do %>
-        <%= image_tag member.user.get_profile_image(180, 180), class: "rounded-circle mx-1 my-4" %>
+        <%= image_tag member.user.get_profile_image(180), class: "rounded-circle mx-1 my-4" %>
       <% end %>
     <% end %>
     <p class="text-right"><%= link_to "もっと見る", group_members_path(@group) %></p>

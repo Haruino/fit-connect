@@ -1,5 +1,5 @@
 class Record < ApplicationRecord
-  before_save :create_name
+  before_validation :create_name
   
   belongs_to :user
   belongs_to :part

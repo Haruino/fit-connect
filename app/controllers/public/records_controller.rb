@@ -5,26 +5,27 @@ class Public::RecordsController < ApplicationController
 
   def create
     @record = @user.records.build(record_params)
-    @record.set = latest_set_number + 1
+    @record.set = latest_set_number(@record.exercise_id, @record.part_id) + 1
     if @record.save
+      flash[:notice] = "トレーニングを記録しました。"
       redirect_to user_records_path(@user)
     else
+      flash.now[:error] = "トレーニングの記録に失敗しました。"
+      todays_records_select
       render :show
     end
   end
   
   def show
-    records = @user.records.select(:id, :name, :rep, :set, :weight, :memo, :created_at).group_by(&:name)
-    @todays_records = records.select { |name, records| records.any? { |record| record.created_at.to_date == Date.today } }
+    todays_records_select
     @record = Record.new
-    @part = Part.new
-    @exercise = Exercise.new
   end
 
   def update
     if @record.update(record_params)
       redirect_to user_records_path(@user)
     else
+      todays_records_select
       render :show
     end
   end
@@ -33,6 +34,7 @@ class Public::RecordsController < ApplicationController
     if @record.destroy
       redirect_to user_records_path(@user)
     else
+      todays_records_select
       render :show
     end
   end
@@ -47,12 +49,17 @@ class Public::RecordsController < ApplicationController
     @record = @user.records.find(params[:id])
   end
   
-  def latest_set_number
-    latest_record = Record.where(exercise_id: record_params[:exercise_id]).last
+  def latest_set_number(exercise_id, part_id)
+    latest_record = @user.records.where(part_id: part_id, exercise_id: exercise_id).last
     latest_record ? latest_record.set : 0
+  end
+  
+  def todays_records_select
+    records = @user.records.select(:id, :name, :rep, :set, :weight, :memo, :created_at).group_by(&:name)
+    @todays_records = records.select { |name, records| records.any? { |record| record.created_at.to_date == Date.today } }
   end
 
   def record_params
-    params.require(:record).permit(:part_id, :exercise_id, :weight, :rep, :memo, :created_at)
+    params.require(:record).permit(:part_id, :exercise_id, :weight, :rep, :memo)
   end
 end
