@@ -22,8 +22,8 @@
         <% records.each do |record| %>
           <tr class="record-row">
             <td class="text-center"><%= record[:set] %></td>
-            <td class="text-center"><%= record[:weight] %></td>
-            <td class="text-center"><%= record[:rep] %></td>
+            <td class="text-center"><%= record[:weight] %>kg</td>
+            <td class="text-center"><%= record[:rep] %>rep</td>
             <td><%= record[:memo] %></td>
             <% if @user == current_user %>
               <td class="text-center"><button class="edit-btn btn btn-x btn-info">編集</button></td>
@@ -34,21 +34,21 @@
             <td></td>
             <td class="text-center">
               <%= form_with model: record, url: user_record_path(@user, record), method: :patch do |f| %>
-                <%= f.text_field :weight, size:"2", class: "form-control mb-1" %>
+                <%= f.text_field :weight, pattern: "^[0-9]+$", size:"2", class: "form-control mb-1" %>
                 <%= f.submit "保存", class: "form-control" %>
-              <% end %>  
+              <% end %>
             </td>
             <td class="text-center">
               <%= form_with model: record, url: user_record_path(@user, record), method: :patch do |f| %>
-                <%= f.text_field :rep, size:"2", class: "form-control mb-1" %>
+                <%= f.text_field :rep, pattern: "^[0-9]+$", size:"2", class: "form-control mb-1" %>
                 <%= f.submit "保存", class: "form-control" %>
-              <% end %>  
+              <% end %>
             </td>
             <td class="text-center">
               <%= form_with model: record, url: user_record_path(@user, record), method: :patch do |f| %>
-                <%= f.text_field :memo, size:"9", class: "form-control mb-1" %>
+                <%= f.text_field :memo, pattern: "^[0-9]+$", size:"9", class: "form-control mb-1" %>
                 <%= f.submit "保存", class: "form-control" %>
-              <% end %>  
+              <% end %>
             </td>
             <td></td>
             <td></td>
@@ -73,15 +73,15 @@
         <%= f.collection_select(:exercise_id, Exercise.all, :id, :name, {}, {class: "form-controll custom-select"}) %>
       </div>
       <div class="form-group">
-        <%= f.label :weight, "重量", class: "form-label" %>
+        <%= f.label :weight, "重量", pattern: "^[0-9]+$", class: "form-label" %>
         <%= f.text_field :weight, class: "form-control" %>
       </div>
       <div class="form-group">
-        <%= f.label :rep, "回数", class: "form-label" %>
+        <%= f.label :rep, "回数", pattern: "^[0-9]+$", class: "form-label" %>
         <%= f.text_field :rep, class: "form-control" %>
       </div>
       <div class="form-group">
-        <%= f.label :memo, "メモ", class: "form-label" %>
+        <%= f.label :memo, "メモ", pattern: "^[0-9]+$", class: "form-label" %>
         <%= f.text_field :memo, class: "form-control" %>
       </div>
       <div class="form-group">

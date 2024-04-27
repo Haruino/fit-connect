@@ -7,7 +7,7 @@ class Group < ApplicationRecord
 
   has_one_attached :group_image
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 255 }
   validates :body, presence: true
 
   def is_owned_by?(user)

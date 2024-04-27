@@ -12,19 +12,14 @@ class User < ApplicationRecord
   has_many :relationships,    dependent: :destroy
   has_many :records,          dependent: :destroy
   has_many :favorites,        dependent: :destroy
-
-   # 自分がフォローされる（被フォロー）側の関係性
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  # 被フォロー関係を通じて参照→自分をフォローしている人
   has_many :followers, through: :reverse_of_relationships, source: :follower
-
-  # 自分がフォローする（与フォロー）側の関係性
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  # 与フォロー関係を通じて参照→自分がフォローしている人
   has_many :followings, through: :relationships, source: :followed
-
   has_one_attached :profile_image
 
+  validates :name, presence: true, length: { maximum: 255 }
+  
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/user_no_image.jpg')
@@ -45,8 +40,7 @@ class User < ApplicationRecord
     followings.include?(user)
   end
 
-
-  # ゲストユーザー機能の実装
+  # ゲストユーザー機能
   GUEST_USER_EMAIL = "guest@example.com"
 
   def self.guest
@@ -61,5 +55,4 @@ class User < ApplicationRecord
     email == GUEST_USER_EMAIL
   end
 
-  validates :name, presence: true
 end

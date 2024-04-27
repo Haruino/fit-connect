@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
       @users = User.where("name LIKE ?", "%#{params[:search]}%")
       @user_title = "「#{params[:search]}」の検索結果"
     else
-      @users = User.all
+      @users = User.page(params[:page])
     end
   end
 

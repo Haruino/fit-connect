@@ -3,7 +3,8 @@ class Public::PastRecordsController < ApplicationController
   before_action :set_user
   
   def index
-    @past_records_by_date = @user.records.where("created_at < ?", Date.today).group_by { |record| record.created_at.to_date }
+    @past_records_by_date = @user.records.where("created_at < ?", Date.today).group_by { |record| record.created_at.to_date }.to_a
+    @past_records_by_date = Kaminari.paginate_array(@past_records_by_date).page(params[:page]).per(10)
   end
 
   def show

@@ -54,5 +54,6 @@
         <div class="col-3 border"><%= post_thread.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
       </div>
     <% end %>
+    <div class="mt-3"><%= paginate @post_threads %></div>
   </div>
 </div>

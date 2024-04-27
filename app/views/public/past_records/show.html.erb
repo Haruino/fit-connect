@@ -22,37 +22,14 @@
             <% records.each do |record| %>
               <tr class="record-row">
                 <td class="text-center"><%= record[:set] %></td>
-                <td class="text-center"><%= record[:weight] %></td>
-                <td class="text-center"><%= record[:rep] %></td>
+                <td class="text-center"><%= record[:weight] %>kg</td>
+                <td class="text-center"><%= record[:rep] %>rep</td>
                 <td><%= record[:memo] %></td>
                 <% if @user == current_user %>
                   <td class="text-center">
                     <%= link_to "削除", user_past_record_path(@user, @date), method: :delete, class: "btn btn-danger" %>
                   </td>
                 <% end %>
-              </tr>
-              <tr class="form-row" style="display:none;">
-                <td></td>
-                <td class="text-center">
-                  <%= form_with model: record, url: user_past_record_path(@user, @date), method: :patch do |f| %>
-                    <%= f.text_field :weight, size:"2", class: "form-control mb-1" %>
-                    <%= f.submit "保存", class: "form-control" %>
-                  <% end %>
-                </td>
-                <td class="text-center">
-                  <%= form_with model: record, url: user_past_record_path(@user, @date), method: :patch do |f| %>
-                    <%= f.text_field :rep, size:"2", class: "form-control mb-1" %>
-                    <%= f.submit "保存", class: "form-control" %>
-                  <% end %>
-                </td>
-                <td class="text-center">
-                  <%= form_with model: record, url: user_past_record_path(@user, @date), method: :patch do |f| %>
-                    <%= f.text_field :memo, size:"9", class: "form-control mb-1" %>
-                    <%= f.submit "保存", class: "form-control" %>
-                  <% end %>
-                </td>
-                <td></td>
-                <td></td>
               </tr>
             <% end %>
           </tbody>

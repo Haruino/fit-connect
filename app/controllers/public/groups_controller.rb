@@ -11,9 +11,9 @@ class Public::GroupsController < ApplicationController
       @groups = Group.where(genre_id: params[:genre_search])
       @group_title = "ジャンル：#{Genre.find(params[:genre_search]).name}"
     else
-      @groups = Group.all
+      @groups = Group.page(params[:page])
     end
-    @genres = Genre.all
+    @genres = Genre.page(params[:page])
     @group = Group.new
   end
 
@@ -24,8 +24,8 @@ class Public::GroupsController < ApplicationController
       flash[:success] = "グループを作成しました。"
       redirect_to group_path(@group)
     else
-      @groups = Group.all
-      @genres = Genre.all
+      @groups = Group.page(params[:page])
+      @genres = Genre.page(params[:page])
       flash.now[:danger] = "グループの作成に失敗しました。"
       render :index
     end
@@ -35,7 +35,7 @@ class Public::GroupsController < ApplicationController
     if params[:thread_search].present?
       @post_threads = PostThread.where("title LIKE ?", "%#{params[:thread_search]}%")
     else
-      @post_threads = @group.post_threads
+      @post_threads = @group.post_threads.page(params[:page]).per(10)
     end
     @post_thread = PostThread.new
   end

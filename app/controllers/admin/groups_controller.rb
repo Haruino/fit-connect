@@ -10,16 +10,16 @@ class Admin::GroupsController < ApplicationController
       @groups = Group.where(genre_id: params[:genre_search])
       @group_title = "ジャンル：#{Genre.find(params[:genre_search]).name}"
     else
-      @groups = Group.all
+      @groups = Group.page(params[:page])
     end
-    @genres = Genre.all
+    @genres = Genre.page(params[:page])
   end
   
   def show
     if params[:thread_search].present?
       @post_threads = PostThread.where("title LIKE ?", "%#{params[:thread_search]}%")
     else
-      @post_threads = @group.post_threads
+      @post_threads = @group.post_threads.page(params[:page]).per(10)
     end
   end
   

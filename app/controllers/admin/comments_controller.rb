@@ -2,7 +2,7 @@ class Admin::CommentsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @comments = Comment.includes(:post_thread).all
+    @comments = Comment.includes(:post_thread).page(params[:page])
   end
   
   def destroy
