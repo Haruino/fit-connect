@@ -53,6 +53,6 @@ class Public::RecordsController < ApplicationController
   end
 
   def record_params
-    params.require(:record).permit(:part_id, :exercise_id, :weight, :rep, :memo)
+    params.require(:record).permit(:part_id, :exercise_id, :weight, :rep, :memo, :created_at)
   end
 end

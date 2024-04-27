@@ -11,6 +11,7 @@ class Public::UsersController < ApplicationController
       @user_title = "「#{params[:search]}」の検索結果"
     else
       @users = User.all
+      @user_title = "全ユーザー" 
     end
   end
 

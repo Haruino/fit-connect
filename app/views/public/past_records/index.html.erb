@@ -1,20 +1,16 @@
 <div class="container">
   <h2>過去のトレーニング記録一覧</h2>
   <ul class="list-group">
-    <% @past_records_by_date.each do |date, records| %>
-      <li class="list-group-item">
-        <%= link_to user_past_record_path(@user, date: date.strftime("%Y-%m-%d")), class: "text-decoration-none text-dark" do %>
-        <span class="mr-2"><%= date.strftime("%Y-%m-%d") %></span>
+  <% @past_records_by_date.each do |date, records| %>
+    <li class="list-group-item">
+      <% display_names = records.map(&:name).join("、 ") %>
+      <%= link_to user_past_record_path(@user, date: date.strftime("%Y-%m-%d")), class: "text-decoration-none text-dark" do %>
+        <span class="mr-2"><%= date.strftime("%Y年%m月%d日") %></span>
         <span class="mr-2">|</span>
-        <% records.each_with_index do |record, index| %>
-          <%= record.name %>
-          <% unless index == records.size - 1 %>
-            、
-          <% end %>
-        <% end %>
-        <% end %>
-      </li>
-    <% end %>
+        <%= display_names.length > 50 ? truncate(display_names, length: 80, omission: '...') : display_names %>
+      <% end %>
+    </li>
+  <% end %>
   </ul>
   <div class="mt-3"><%= paginate @past_records_by_date %></div>
 </div>
