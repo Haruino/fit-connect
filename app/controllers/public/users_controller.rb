@@ -10,8 +10,8 @@ class Public::UsersController < ApplicationController
       @users = User.where("name LIKE ?", "%#{params[:search]}%")
       @user_title = "「#{params[:search]}」の検索結果"
     else
-      @users = User.all
-      @user_title = "全ユーザー" 
+      @users = User.page(params[:page]).per(10)
+      @user_title = "全ユーザー"
     end
   end
 
