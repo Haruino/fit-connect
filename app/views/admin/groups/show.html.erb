@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-sm-12 offset-md-2 col-md-4 mb-4">
+    <%= image_tag @group.get_group_image(300) %>
+  </div>
+  <div class="col-sm-12 col-md-4 mb-4">
+    <div class="text-right mb-4">
+      <%= link_to '削除する', admin_group_path(@group), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "本当に削除しますか？" } %>
+    </div>
+    <h3><%= @group.title %></h3>
+    <p><%= @group.body %></p>
+    <span class="badge badge-warning"><%= @group.genre.name %></span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="offset-2 col-8">
+    <h3 class="mb-4">メンバー一覧</h3>
+    <% @group.members.each do |member| %>
+      <%= link_to admin_user_path(member.user) do %>
+        <%= image_tag member.user.get_profile_image(180), class: "rounded-circle mx-1 my-4" %>
+      <% end %>
+    <% end %>
+    <p class="text-right"><%= link_to "もっと見る", admin_group_members_path(@group) %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="offset-2 col-9">
+    <div class="form-group">
+      <%= form_with url: admin_group_path(@group), method: :get do |form| %>
+        <div class="d-flex">
+          <%= form.text_field :thread_search, placeholder: "スレッドを検索", class: "form-control mr-2" %>
+          <%= form.button type: "submit", class: "btn btn-secondary" do %>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="d-flex text-white">
+      <div class="col-1 border bg-secondary ">No.</div>
+      <div class="col-5 border bg-secondary ">スレッド一覧</div>
+      <div class="col-3 border bg-secondary ">作成者</div>
+      <div class="col-3 border bg-secondary ">作成日時</div>
+    </div>
+    <% @post_threads.reverse_each.with_index(1) do |post_thread, index| %>
+      <div class="d-flex">
+        <div class="col-1 border"><%= index %></div>
+        <div class="col-5 border">
+          <%= link_to admin_post_thread_path(post_thread) do %>
+            <%= post_thread.title %>
+          <% end %>
+        </div>
+        <div class="col-3 border"><%= post_thread.user.name %></div>
+        <div class="col-3 border"><%= post_thread.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+      </div>
+    <% end %>
+    <div class="mt-3"><%= paginate @post_threads %></div>
+  </div>
+</div>

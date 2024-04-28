@@ -1,0 +1,5 @@
+  <%= link_to post_thread_favorites_path(post_thread), method: :post, remote: true, data: {"turbolinks" => false}, class: "favorite-btn text-dark" do %>
+    <p class="mr-4 btn btn-outline-secondary" id='like'>
+      ブックマークに登録
+    </p>
+  <% end %>

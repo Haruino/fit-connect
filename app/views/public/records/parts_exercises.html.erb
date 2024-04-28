@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <table class="table table-bordered">
+      <thead>
+        <tr class="thead-dark">
+          <th colspan="2" class="text-center">部位</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @parts.each do |part| %>
+          <tr>
+            <td class="col-10 text-center"><%= part.name %></td>
+            <td class="col-2 text-center">
+              <%= link_to "削除", user_records_part_path(@user, part), method: :delete, class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="col-md-6 mb-4">
+    <table class="table table-bordered">
+      <thead>
+        <tr class="thead-dark">
+          <th colspan="2" class="text-center">エクササイズ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @exercises.each do |exercise| %>
+          <tr>
+            <td class="col-10 text-center"><%= exercise.name %></td>
+            <td class="col-2 text-center">
+              <%= link_to "削除", user_records_exercise_path(@user, exercise), method: :delete, class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<h2 class="text-center"><%= link_to "記録ページに戻る", user_records_path, class: "text-underline" %></h2>

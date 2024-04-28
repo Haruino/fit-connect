@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="container d-flex justify-content-between align-items-center">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag asset_path("logo.png"), class: "header-logo", alt: "Logo" %>
+    <% end %>
+    <% if admin_signed_in? || user_signed_in? %>
+      <%= form_with url: search_path, method: :get, local: true, class: "form-inline" do |f| %>
+        <div class="d-flex flex-column align-items-start">
+          <div class="form-group mb-2">
+            <%= f.radio_button :search_model, "user", checked: true %>
+            <%= f.label :search_model_user, "ユーザー", class: "mr-4" %>
+            <%= f.radio_button :search_model, "group" %>
+            <%= f.label :search_model_group, "グループ", class: "mr-sm-2 m-lg-0" %>
+          </div>
+          <div class="form-group">
+            <%= f.text_field :search, placeholder: "検索", class: "form-control mr-2" %>
+            <%= f.button type: "submit", class: "btn btn-secondary" do %>
+              <i class="fa-solid fa-magnifying-glass"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <div>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <!-- 管理者ログイン -->
+          <% if admin_signed_in? %>
+            <li class="nav-item">
+              <%= link_to admin_groups_path, class: "nav-link header-nav-link" do %>
+                <span>Groups</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_users_path, class: "nav-link header-nav-link" do %>
+                <span>Users</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_genres_path, class: "nav-link header-nav-link" do %>
+                <span>Genres</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_comments_path, class: "nav-link header-nav-link" do %>
+                <span>Comments</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link header-nav-link" do %>
+                <span>LogOut</span>
+              <% end %>
+            </li>
+          <!-- ユーザーログイン -->
+          <% elsif user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to groups_path, class: "nav-link header-nav-link" do %>
+                <span>Groups</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to user_path(current_user), class: "nav-link header-nav-link" do %>
+                <span>Mypage</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to user_records_path(current_user), class: "nav-link header-nav-link" do %>
+                <span>Records</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to destroy_user_session_path, method: :delete, class: "nav-link header-nav-link" do %>
+                <span>LogOut</span>
+              <% end %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to groups_path, class: "nav-link header-nav-link" do %>
+                <span>Groups</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_user_registration_path, class: "nav-link header-nav-link" do %>
+                <span>SignUp</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_user_session_path, class: "nav-link header-nav-link" do %>
+                <span>LogIn</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to user_guest_sign_in_path, method: :post, class: "nav-link header-nav-link" do %>
+                <span>Guest</span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

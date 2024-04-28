@@ -1,0 +1,11 @@
+<h2 class="text-center mb-4">フォロー一覧</h2>
+<div class="row">
+  <% @users.each do |user| %>
+    <div class="col text-center">
+      <%= link_to user_path(user) do %>
+        <%= image_tag user.get_profile_image(180), class: "rounded-circle mx-auto my-4 d-block" %>
+        <p><%= user.name %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

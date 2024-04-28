@@ -6,11 +6,26 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/<%= ENV["FONTAWESOME_KEY"] %>.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=M+PLUS+1:wght@100..900&family=M+PLUS+Rounded+1c&family=Russo+One&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <%= yield %>
+    <header class="mb-4">
+      <%= render 'layouts/header' %>
+    </header>
+    <main class="my-4">
+      <div class="container my-4">
+        <%= render 'layouts/flashes' %>
+        <%= yield %>
+      </div>
+    </main>
+    <footer class="bg-light py-4">
+      <%= render 'layouts/footer' %>
+    </footer>
   </body>
 </html>

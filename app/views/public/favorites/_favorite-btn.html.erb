@@ -1,0 +1,7 @@
+<div id='like'>
+  <% if post_thread.favorited_by?(current_user) %>
+    <%= render "public/favorites/dislike", post_thread: post_thread %>
+  <% else %>
+    <%= render "public/favorites/like", post_thread: post_thread %>
+  <% end %>
+</div>

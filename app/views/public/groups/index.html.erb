@@ -1,0 +1,49 @@
+<%= render "public/shared/error_messages", resource: @group %>
+<div class='row'>
+  <div class="col-9">
+    <% if params[:group_search] || params[:genre_search] %>
+      <h2 class="text-center mt-3 mb-5"><%= @group_title %></h2>
+    <% end %>
+    <div class="row">
+      <% @groups.each do |group| %>
+        <div class='col-md-4 mb-4'>
+          <div class='card h-100 d-flex flex-column'>
+            <%= image_tag group.get_group_image(500), class: "card-img-top" %>
+            <div class='card-body'>
+              <h5 class='card-title'>
+                <%= link_to_group(group) %>
+              </h5>
+              <p class='card-text'><%= group.body %></p>
+            </div>
+            <div class="mt-auto pb-3 px-3">
+              <span class="badge badge-warning"><%= group.genre.name %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="card">
+        <div class="card-header bg-dark text-white">ジャンル一覧</div>
+        <div class="card-body p-0">
+          <div class="list-group list-group-flush">
+            <%= link_to "全て", groups_path, class: "list-group-item list-group-item-action" %>
+            <% @genres.each do |genre| %>
+              <%= link_to genre.name, groups_path(genre_search: genre.id), class: "list-group-item list-group-item-action" %>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="mx-auto"><%= paginate @groups %></div>
+</div>
+
+<% if user_signed_in? && !current_user.guest_user? %>
+<div class='row'>
+  <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+    <h3>グループ作成</h3>
+    <%= render "form", group: @group %>
+    </div>
+</div>
+<% end %>

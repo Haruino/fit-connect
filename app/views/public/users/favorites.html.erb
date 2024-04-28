@@ -1,0 +1,23 @@
+<h2 class="text-center mb-4">ブックマークしたスレッド</h2>
+<div class="row">
+  <div class="offset-2 col-9">
+    <div class="d-flex text-white">
+      <div class="col-1 border bg-secondary ">No.</div>
+      <div class="col-5 border bg-secondary ">スレッド一覧</div>
+      <div class="col-3 border bg-secondary ">作成者</div>
+      <div class="col-3 border bg-secondary ">作成日時</div>
+    </div>
+    <% @favorites.reverse_each.with_index(1) do |favorite, index| %>
+      <div class="d-flex">
+        <div class="col-1 border"><%= index %></div>
+        <div class="col-5 border">
+          <%= link_to post_thread_path(favorite.post_thread) do %>
+            <%= favorite.post_thread.title %>
+          <% end %>
+        </div>
+        <div class="col-3 border"><%= favorite.post_thread.user.name %></div>
+        <div class="col-3 border"><%= favorite.post_thread.created_at.strftime('%Y/%m/%d %H:%M:%S') %></div>
+      </div>
+    <% end %>
+  </div>
+</div>

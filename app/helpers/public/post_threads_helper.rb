@@ -1,0 +1,2 @@
+module Public::PostThreadsHelper
+end
