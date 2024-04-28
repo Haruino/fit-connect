@@ -211,11 +211,13 @@ parts = [
   "腕",
   "腹筋"
 ]
-parts.each do |part_name|
-  Part.create!(
-    user_id: 1,
-    name: part_name
-  )
+(1..11).each do |user_id|
+  parts.each do |part_name|
+    Part.create!(
+      user_id: user_id,
+      name: part_name
+    )
+  end
 end
 
 # エクササイズの作成
@@ -232,11 +234,13 @@ exercises = [
   "サイドレイズ"
 ]
 
-exercises.each do |exercise_name|
-  Exercise.create!(
-    user_id: 1,
-    name: exercise_name
-  )
+(1..11).each do |user_id|
+  exercises.each do |exercise_name|
+    Exercise.create!(
+      user_id: user_id,
+      name: exercise_name
+    )
+  end
 end
 
 # レコードの作成

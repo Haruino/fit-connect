@@ -2,8 +2,6 @@ class Public::ExercisesController < ApplicationController
   def create
     @exercise = current_user.exercises.build(exercise_params)
     if @exercise.save
-      @user = User.find(params[:user_id])
-      @user.exercises << @exercise  # ここで@exerciseを@userに関連付ける
       redirect_to user_records_path(current_user)
     else
       flash[:error] = "種目の追加に失敗しました。"
