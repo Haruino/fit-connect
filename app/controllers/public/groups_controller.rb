@@ -35,7 +35,7 @@ class Public::GroupsController < ApplicationController
     if params[:thread_search].present?
       @post_threads = PostThread.where("title LIKE ?", "%#{params[:thread_search]}%").page(params[:page]).per(10)
     else
-      @post_threads = @group.post_threads.page(params[:page]).per(10)
+      @post_threads = @group.post_threads.reverse_order.page(params[:page]).per(10)
     end
     @post_thread = PostThread.new
   end

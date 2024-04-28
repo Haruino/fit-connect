@@ -42,7 +42,7 @@
       <div class="col-3 border bg-secondary ">作成者</div>
       <div class="col-3 border bg-secondary ">作成日時</div>
     </div>
-    <% @post_threads.reverse_each.with_index(1) do |post_thread, index| %>
+    <% @post_threads.each.with_index(1) do |post_thread, index| %>
       <div class="d-flex">
         <div class="col-1 border"><%= index %></div>
         <div class="col-5 border">
