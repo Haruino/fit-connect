@@ -12,9 +12,9 @@ class Public::MembersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
+    @user = User.find(params[:id])
     transfer_ownership
-    @group.users.delete(user)
+    @group.users.delete(@user)
     group_destroy_or_leave
   end
   

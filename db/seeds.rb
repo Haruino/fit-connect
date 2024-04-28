@@ -7,19 +7,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # テスト用メール&パスワード
-
 TEST_GMAIL_ACCOUNT_NAME = ENV["TEST_GMAIL_ACCOUNT_NAME"]
 TEST_PASSWORD = ENV["TEST_PASSWORD"]
 
 # 管理者作成
-
 Admin.create!(
    email: 'admin@gmail',
    password: '123456'
 )
 
 # ジャンル作成
-
 initial_genres = [
   {name: "誰でも歓迎"},
   {name: "ダイエット"},
@@ -33,7 +30,6 @@ initial_genres = [
 Genre.create!(initial_genres)
 
 # ユーザー作成
-
 initial_users = [
   {
     "name": "田中太郎",
@@ -146,7 +142,7 @@ initial_groups = [
   },
   {
   "genre_id": 4,
-  "title": "BIG3研究会",
+  "title": "BIG3を極めし者達",
   "body": "BIG3に興味のある人や、BIG3に関する情報を共有したい人が集まるグループです。力を合わせて成長しましょう！",
   "owner_id": 8
   },
@@ -243,6 +239,7 @@ exercises.each do |exercise_name|
   )
 end
 
+# レコードの作成
 Record.create!(
   user_id: 1,
   part_id: 1,

@@ -56,14 +56,17 @@ class Public::RecordsController < ApplicationController
   end
   
   def latest_set_number(exercise_id, part_id)
-    latest_record = @user.records.where(part_id: part_id, exercise_id: exercise_id).last
+    latest_record = @user.records.where(part_id: part_id, exercise_id: exercise_id).where("DATE(created_at) = ?", Date.today).order(created_at: :desc).first
     latest_record ? latest_record.set : 0
   end
   
   def todays_records_select
     records = @user.records.select(:id, :name, :rep, :set, :weight, :memo, :created_at).group_by(&:name)
-    @todays_records = records.select { |name, records| records.any? { |record| record.created_at.to_date == Date.today } }
+    @todays_records = records.select { |name, records| 
+      records.any? { |record| record.created_at.to_date == Date.today }
+    }.transform_values { |records| records.select { |record| record.created_at.to_date == Date.today } }
   end
+
 
   def record_params
     params.require(:record).permit(:part_id, :exercise_id, :weight, :rep, :memo)

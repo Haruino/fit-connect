@@ -7,6 +7,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'style', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/<%= ENV["FONTAWESOME_KEY"] %>.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +16,6 @@
   </head>
 
   <body>
-    <%= render 'layouts/style' %>
     <header class="mb-4">
       <%= render 'layouts/header' %>
     </header>
@@ -27,7 +27,6 @@
     </main>
     <footer class="bg-light py-4">
       <%= render 'layouts/footer' %>
-      <!-- 一時的に -->
     </footer>
   </body>
 </html>

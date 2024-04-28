@@ -33,7 +33,7 @@ class Public::GroupsController < ApplicationController
 
   def show
     if params[:thread_search].present?
-      @post_threads = PostThread.where("title LIKE ?", "%#{params[:thread_search]}%")
+      @post_threads = PostThread.where("title LIKE ?", "%#{params[:thread_search]}%").page(params[:page]).per(10)
     else
       @post_threads = @group.post_threads.page(params[:page]).per(10)
     end
