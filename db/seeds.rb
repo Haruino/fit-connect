@@ -6,13 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# テスト用メール&パスワード
+
 TEST_GMAIL_ACCOUNT_NAME = ENV["TEST_GMAIL_ACCOUNT_NAME"]
 TEST_PASSWORD = ENV["TEST_PASSWORD"]
+
+# 管理者作成
 
 Admin.create!(
    email: 'admin@gmail',
    password: '123456'
 )
+
+# ジャンル作成
 
 initial_genres = [
   {name: "誰でも歓迎"},
@@ -25,6 +31,8 @@ initial_genres = [
   {name: "その他"}
 ]
 Genre.create!(initial_genres)
+
+# ユーザー作成
 
 initial_users = [
   {
@@ -92,6 +100,7 @@ initial_users.each.with_index(1) do |user, i|
   new_user.profile_image.attach(io: File.open(profile_image_path), filename: "user_#{sprintf("%02d",i)}.jpg")
 end
 
+# グループ作成
 initial_groups = [
   {
     "genre_id": 1,
@@ -160,14 +169,21 @@ initial_groups.each.with_index(1) do |group, i|
   new_group.group_image.attach(io: File.open(image_path), filename: "group_#{sprintf("%02d",i)}.jpg")
 end
 
+
+# グループメンバー追加
 initial_members = []
 
 user_ids = (1..11).to_a.shuffle
 group_ids = (1..10).to_a
 
 group_ids.each do |group_id|
-  4.times do
+  owner = User.find(Group.find(group_id).owner_id)
+  members = [owner.id]
+  3.times do
     user_id = user_ids.shift
+    members << user_id
+  end
+  members.each do |user_id|
     initial_members << { user_id: user_id, group_id: group_id }
   end
 end
@@ -175,3 +191,93 @@ end
 initial_members.each do |member|
   Member.create(member)
 end
+
+
+# スレッド作成
+first_group = Group.first
+
+11.times do |i|
+  PostThread.create!(
+    user_id: first_group.owner_id, 
+    group_id: first_group.id,
+    title: "BIG3研究#{i + 1}",
+    body: "語りましょう#{i + 1}"
+  )
+end
+
+
+# 部位の作成
+parts = [
+  "胸",
+  "脚",
+  "背中",
+  "肩",
+  "腕",
+  "腹筋"
+]
+parts.each do |part_name|
+  Part.create!(
+    user_id: 1,
+    name: part_name
+  )
+end
+
+# エクササイズの作成
+exercises = [
+  "ベンチプレス",
+  "インクラインベンチプレス",
+  "スクワット",
+  "デッドリフト",
+  "懸垂",
+  "ベントオーバーロウ",
+  "バーベルカール",
+  "フレンチプレス",
+  "OHP",
+  "サイドレイズ"
+]
+
+exercises.each do |exercise_name|
+  Exercise.create!(
+    user_id: 1,
+    name: exercise_name
+  )
+end
+
+Record.create!(
+  user_id: 1,
+  part_id: 1,
+  exercise_id: 1,
+  name: "胸 - ベンチプレス",
+  weight: 100,
+  rep: 10,
+  set: 1,
+  memo: "良いトレーニングでした。",
+  created_at: "2024-04-01T12:00:00Z",
+  updated_at: "2024-04-01T12:00:00Z"
+)
+
+Record.create!(
+  user_id: 1,
+  part_id: 2,
+  exercise_id: 3,
+  name: "脚 - スクワット",
+  weight: 130,
+  rep: 5,
+  set: 1,
+  memo: "ちょっと重かった。",
+  created_at: "2024-04-02T12:00:00Z",
+  updated_at: "2024-04-02T12:00:00Z"
+)
+
+Record.create!(
+  user_id: 1,
+  part_id: 2,
+  exercise_id: 4,
+  name: "脚 - デッドリフト",
+  weight: 170,
+  rep: 3,
+  set: 1,
+  memo: "",
+  created_at: "2024-04-03T12:00:00Z",
+  updated_at: "2024-04-03T12:00:00Z"
+)

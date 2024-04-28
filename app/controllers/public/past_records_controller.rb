@@ -30,8 +30,12 @@ class Public::PastRecordsController < ApplicationController
   
   def all_records_for_date
     @date = params[:date].to_date
+    puts "@date: #{@date}"
     all_records = @user.records.where("DATE(created_at) = ?", @date).select(:id, :name, :rep, :set, :weight, :memo, :created_at)
+    
     @grouped_records_for_date = all_records.group_by(&:name).select { |_, records| records.any? { |record| record.created_at.to_date == @date } }
+    
+    puts "@grouped_records_for_date: #{@grouped_records_for_date}"
   end
 
   def record_params
