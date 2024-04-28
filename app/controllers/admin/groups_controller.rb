@@ -12,14 +12,14 @@ class Admin::GroupsController < ApplicationController
     else
       @groups = Group.page(params[:page])
     end
-    @genres = Genre.page(params[:page])
+    @genres = Genre.あｌｌ
   end
   
   def show
     if params[:thread_search].present?
       @post_threads = PostThread.where("title LIKE ?", "%#{params[:thread_search]}%")
     else
-      @post_threads = @group.post_threads.page(params[:page]).per(10)
+      @post_threads = @group.post_threads.reverse_order.page(params[:page]).per(10)
     end
   end
   
