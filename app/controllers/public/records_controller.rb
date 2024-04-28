@@ -2,6 +2,7 @@ class Public::RecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
   before_action :find_record, only: [:update, :destroy]
+  before_action :ensure_not_guest_user
 
   def create
     @record = @user.records.build(record_params)
@@ -19,10 +20,6 @@ class Public::RecordsController < ApplicationController
   def show
     todays_records_select
     @record = Record.new
-    if current_user.guest_user?
-      flash[:alert] = "ゲストユーザーは記録機能を使用できません。"
-      redirect_to root_path
-    end
   end
 
   def update
@@ -74,5 +71,9 @@ class Public::RecordsController < ApplicationController
 
   def record_params
     params.require(:record).permit(:part_id, :exercise_id, :weight, :rep, :memo)
+  end
+  
+  def ensure_not_guest_user
+    redirect_to root_path if @user.guest_user?
   end
 end

@@ -1,6 +1,7 @@
 class Public::PastRecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
+  before_action :ensure_not_guest_user
   
   def index
     @past_records_by_date = @user.records.where("created_at < ?", Date.today).group_by { |record| record.created_at.to_date }.to_a
@@ -36,5 +37,9 @@ class Public::PastRecordsController < ApplicationController
 
   def record_params
     params.require(:record).permit(:part_id, :exercise_id, :weight, :rep, :memo)
+  end
+  
+  def ensure_not_guest_user
+    redirect_to root_path if @user.guest_user?
   end
 end

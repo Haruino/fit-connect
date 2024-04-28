@@ -11,7 +11,7 @@
           <tr>
             <td class="col-10 text-center"><%= part.name %></td>
             <td class="col-2 text-center">
-              <%= link_to "削除", user_records_part_path(@user, part), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %>
+              <%= link_to "削除", user_records_part_path(@user, part), method: :delete, class: "btn btn-danger btn-sm" %>
             </td>
           </tr>
         <% end %>

@@ -1,5 +1,9 @@
 <%= render "public/shared/error_messages", resource: @record %>
-<h2 class="mb-4 text-center">本日のトレーニング</h2>
+<% if current_user == @user %>
+  <h2 class="mb-4 text-center">本日のトレーニング</h2>
+<% else %>
+  <h2 class="mb-4 text-center"><%= @user.name %>さんの本日のトレーニング</h2>
+<% end %>
 <div class="row">
   <% @todays_records.each do |name, records| %>
   <div class="col-md-6 mb-4">
