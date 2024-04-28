@@ -38,6 +38,12 @@ class Public::RecordsController < ApplicationController
       render :show
     end
   end
+  
+  def parts_exercises
+    @user = User.find(params[:user_id])
+    @parts = @user.parts
+    @exercises = @user.exercises
+  end
 
   private
   

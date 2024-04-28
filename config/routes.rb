@@ -17,8 +17,9 @@ Rails.application.routes.draw do
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers'  => 'relationships#followers',  as: 'followers'
       resource  :records,         only: [:create,:show] do
-        resource :parts, only: [:create]
-        resource :exercises, only: [:create]
+        resources :parts, only: [:create, :destroy]
+        resources :exercises, only: [:create, :destroy]
+        get 'parts_exercises' => 'records#parts_exercises', as: 'parts_exercises'
       end
       resources :records,         only: [:update, :destroy]
       resources :past_records,    only: [:index,:show,:destroy], param: :date

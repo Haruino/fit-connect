@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2024_04_23_062212) do
   end
 
   create_table "exercises", force: :cascade do |t|
+    t.integer "user_id", null: false
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -96,6 +97,7 @@ ActiveRecord::Schema.define(version: 2024_04_23_062212) do
   end
 
   create_table "parts", force: :cascade do |t|
+    t.integer "user_id", null: false
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
