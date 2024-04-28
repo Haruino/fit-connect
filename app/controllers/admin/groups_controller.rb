@@ -12,7 +12,7 @@ class Admin::GroupsController < ApplicationController
     else
       @groups = Group.page(params[:page])
     end
-    @genres = Genre.page(params[:page])
+    @genres = Genre.あｌｌ
   end
   
   def show

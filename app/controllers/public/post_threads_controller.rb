@@ -10,7 +10,7 @@ class Public::PostThreadsController < ApplicationController
       flash[:notice] = "スレッドを投稿しました。"
       redirect_to post_thread_path(@post_thread)
     else
-      @post_threads = PostThread.page(params[:page])
+      @post_threads = PostThread.page(params[:page]).per(10)
       flash.now[:error] = "スレッドの投稿に失敗しました。"
       render "public/groups/show"
     end
