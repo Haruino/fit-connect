@@ -13,7 +13,7 @@
 </div>
 
 <div class="row">
-  <div class="offset-2 col-8">
+  <div class="offset-2 col-8 text-center">
     <h3 class="mb-4">メンバー一覧</h3>
     <% @group.members.limit(3).each do |member| %>
       <%= link_to admin_user_path(member.user) do %>
