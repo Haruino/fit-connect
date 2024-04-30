@@ -1,7 +1,7 @@
 <%= render "public/shared/error_messages", resource: @group %>
 <div class='row'>
   <div class="col-9">
-    <% if params[:group_search] || params[:genre_search] %>
+    <% if params[:search] || params[:genre_search] %>
       <h2 class="text-center mt-3 mb-5"><%= @group_title %></h2>
     <% end %>
     <div class="row">
