@@ -4,11 +4,11 @@ class Public::GroupsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
 
   def index
-    if params[:group_search].present?
-      @groups = Group.where("title LIKE ?", "%#{params[:group_search]}%")
-      @group_title = "「#{params[:group_search]}」の検索結果"
+    if params[:search]
+      @groups = Group.where("title LIKE ?", "%#{params[:search]}%").page(params[:page])
+      @group_title = "「#{params[:search]}」の検索結果"
     elsif params[:genre_search]
-      @groups = Group.where(genre_id: params[:genre_search])
+      @groups = Group.where(genre_id: params[:genre_search]).page(params[:page])
       @group_title = "ジャンル：#{Genre.find(params[:genre_search]).name}"
     else
       @groups = Group.page(params[:page])
