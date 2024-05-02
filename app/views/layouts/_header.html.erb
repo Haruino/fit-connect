@@ -3,10 +3,10 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag asset_path("logo.png"), class: "header-logo", alt: "Logo" %>
     <% end %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <% if admin_signed_in? || user_signed_in? %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <%= form_with url: search_path, method: :get, local: true, class: "form-inline" do |f| %>
         <div class="d-flex flex-column align-items-start">
           <div class="form-group mb-2">
