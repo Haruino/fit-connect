@@ -1,5 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
+  before_action :set_user, only: [:show, :withdraw]
+
   def index
     if params[:search].present?
       @users = User.where("name LIKE ?", "%#{params[:search]}%").page(params[:page])
@@ -16,8 +18,13 @@ class Admin::UsersController < ApplicationController
   def withdraw
     withdrew_email = "withdrew_" + Time.now.to_i.to_s + @user.email
     @user.update(email: withdrew_email, active: false)
-    reset_session
     flash[:info] = "ユーザーを退会させした。"
-    redirect_to root_path
+    redirect_to admin_users_path
+  end
+  
+  private
+  
+  def set_user
+    @user = User.find(params[:id])
   end
 end

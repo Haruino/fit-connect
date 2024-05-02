@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   scope module: :public do
     resources :users,         except:   [:new,:create,:destroy] do
       get :favorites,             on: :member
-      get :withdraw,              on: :member
+      patch :withdraw,              on: :member
       resource :relationships,    only: [:create,:destroy]
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers'  => 'relationships#followers',  as: 'followers'
@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users,           only: [:index, :show] do
-      get :withdraw,              on: :member
+      patch :withdraw,              on: :member
     end
     resources :genres,          except: [:new,:show]
     resources :groups,          only:   [:index,:show,:destroy] do

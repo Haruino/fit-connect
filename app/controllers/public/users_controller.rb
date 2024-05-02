@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :favorites]
+  before_action :set_user, only: [:show, :favorites, :withdraw]
   before_action :set_current_user, only: [:edit, :update]
   before_action :ensure_correct_user, only: [:edit, :update, :withdraw]
   before_action :ensure_not_guest_user, only: [:edit, :update]
