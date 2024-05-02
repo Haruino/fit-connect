@@ -4,10 +4,10 @@ class Admin::UsersController < ApplicationController
 
   def index
     if params[:search].present?
-      @users = User.where("name LIKE ?", "%#{params[:search]}%").page(params[:page])
+      @users = User.where("name LIKE ?", "%#{params[:search]}%").page(params[:page]).per(10)
       @user_title = "「#{params[:search]}」の検索結果"
     else
-      @users = User.page(params[:page])
+      @users = User.page(params[:page]).per(10)
     end
   end
 
