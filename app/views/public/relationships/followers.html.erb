@@ -1,4 +1,8 @@
-<h2 class="text-center mb-4">フォロワー一覧</h2>
+<% if current_user == @user %>
+  <h2 class="text-center mb-4">フォロワー一覧</h2>
+<% else %>
+  <h2 class="text-center mb-4"><%= @user.name %>さんのフォロワー一覧</h2>
+<% end %>
 <div class="row">
   <% @users.each do |user| %>
     <div class="col text-center">
