@@ -1,0 +1,26 @@
+name: Ignore Folders on Merge to main
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  ignore_folders:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for changes in specific folders
+        id: folder_changes
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Ignore specific folders on merge to main
+        run: |
+          if [[ -n $(git diff --name-only main -- ${FOLDER_PATHS_TO_IGNORE[*]}) ]]; then
+            echo "Some specific folders have been modified. Exiting without merging to main."
+            exit 1
+          else
+            echo "No specific folders have been modified. Proceeding with merge to main."
+          fi
+        env:
+          FOLDER_PATHS_TO_IGNORE: app/assets/images/seeds/
