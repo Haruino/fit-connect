@@ -1,0 +1,26 @@
+name: Ignore Files on Merge to main
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  ignore_files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for changes in specific files
+        id: file_changes
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Ignore specific files on merge to main
+        run: |
+          if [[ -n $(git diff --name-only main -- ${FILE_PATHS_TO_IGNORE[*]}) ]]; then
+            echo "Some specific files have been modified. Exiting without merging to main."
+            exit 1
+          else
+            echo "No specific files have been modified. Proceeding with merge to main."
+          fi
+        env:
+          FILE_PATHS_TO_IGNORE: db/seeds.rb
