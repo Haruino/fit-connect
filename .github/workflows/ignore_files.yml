@@ -23,4 +23,4 @@ jobs:
             echo "No specific files have been modified. Proceeding with merge to main."
           fi
         env:
-          FILE_PATHS_TO_IGNORE: db/seeds.rb
+          FILE_PATHS_TO_IGNORE: /FitConnect/db/seeds.rb

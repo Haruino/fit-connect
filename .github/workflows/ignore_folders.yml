@@ -23,4 +23,4 @@ jobs:
             echo "No specific folders have been modified. Proceeding with merge to main."
           fi
         env:
-          FOLDER_PATHS_TO_IGNORE: app/assets/images/seeds/
+          FOLDER_PATHS_TO_IGNORE: /FitConnect/app/assets/images/seeds/
