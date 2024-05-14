@@ -10,7 +10,7 @@
     <%= link_to user_past_record_path(@user, date: date.strftime("%Y-%m-%d")), class: "text-decoration-none text-dark" do %>
       <span class="mr-2"><%= date.strftime("%Y年%m月%d日") %></span>
       <span class="mr-2">|</span>
-      <%= display_names.length > 50 ? truncate(display_names, length: 80, omission: '...') : display_names %>
+      <%= display_names.length > 50 ? truncate(display_names, length: 50, omission: '...') : display_names %>
     <% end %>
   </li>
 <% end %>

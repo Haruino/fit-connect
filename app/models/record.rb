@@ -6,7 +6,9 @@ class Record < ApplicationRecord
   belongs_to :exercise
   
   validates :name,   presence: true
-  validates :weight, presence: true, numericality: {only_integer: true, less_than_or_equal_to: 999}
+  validates :weight, presence: true,
+                     numericality: { less_than_or_equal_to: 999 },
+                     format: { with: /\A\d+(\.\d+)?\z/ }
   validates :rep,    presence: true, numericality: {only_integer: true, less_than_or_equal_to: 999}
   
   def create_name
