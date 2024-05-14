@@ -8,6 +8,10 @@
   }
 }
 
+.content {
+  min-height: calc(100vh - 230px);
+}
+
 .nav-link > span {
   font-family: "Bebas Neue", sans-serif;
   font-size: 1.25rem;
@@ -77,10 +81,3 @@ a {
 .pd-custom {
   padding: 0;
 }
-
-// @media screen and (max-width: 565px) {
-//   .header-logo {
-//     max-width: 70%;
-//     height: auto;
-//   }
-// }
