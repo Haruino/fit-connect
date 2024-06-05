@@ -4,6 +4,7 @@ class Public::UsersController < ApplicationController
   before_action :set_current_user, only: [:edit, :update]
   before_action :ensure_correct_user, only: [:edit, :update, :withdraw]
   before_action :ensure_not_guest_user, only: [:edit, :update]
+  
 
   def index
     if params[:search].present?

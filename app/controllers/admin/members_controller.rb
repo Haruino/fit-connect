@@ -6,7 +6,8 @@ class Admin::MembersController < ApplicationController
   end
   
   def destroy
-    @member = @group.members.find_by(user_id: params[:id])
+    @group = Group.find(params[:group_id])
+    @member = @group.members.find_by(id: params[:id])
     if @member.destroy
       redirect_to admin_group_members_path(@group)
     else

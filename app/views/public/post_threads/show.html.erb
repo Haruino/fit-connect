@@ -16,7 +16,9 @@
       </div>
       <div class="col-4">
         <div class="text-right">
-          <%= image_tag @post_thread.user.get_profile_image(100), class: "rounded-circle ml-4" %>
+          <%= link_to user_path(@post_thread.user) do %>
+            <%= image_tag @post_thread.user.get_profile_image(100), class: "rounded-circle ml-4" %>
+          <% end %>
           <p class="mt-1 mr-3"><%= @post_thread.user.name %></p>
         </div>
       </div>
@@ -25,7 +27,9 @@
     <% @post_thread.comments.each do |comment| %>
     <div class="row">
       <div class="col-1">
-        <%= image_tag comment.user.get_profile_image(50) %>
+        <%= link_to user_path(@post_thread.user) do %>
+          <%= image_tag comment.user.get_profile_image(50) %>
+        <% end %>
       </div>
       <div class="col-7 my-2">
         <p class="text-break"><%= comment.comment %></p>
